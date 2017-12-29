@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JoJoPad.iml" filepath="$PROJECT_DIR$/JoJoPad.iml" />
+      <module fileurl="file://D:\sun\aa\JoJoPad.iml" filepath="D:\sun\aa\JoJoPad.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aa.iml" filepath="$PROJECT_DIR$/aa.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

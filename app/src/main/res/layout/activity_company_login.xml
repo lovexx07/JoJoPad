@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="user"
+            type="com.jojo.pad.model.bean.CompanyBean" />
+        <variable
+            name="presenter"
+            type="com.jojo.pad.presenter.LoginPresenter"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+
+            >
+            <com.jojo.pad.widget.CircleImageView
+                android:layout_width="@dimen/logo"
+                android:layout_height="@dimen/logo"
+                android:src="@drawable/app_logo"
+                android:layout_gravity="center"
+                />
+            <EditText
+                android:layout_width="@dimen/login_width"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_20"
+                android:hint="账号名称/邮箱/手机号"
+                android:text="@={user.companyaccount}"
+                />
+
+            <EditText
+                android:layout_width="@dimen/login_width"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_20"
+                android:gravity="center"
+                android:text="@={user.password}"
+                android:hint="输入密码" />
+            <Button
+                android:layout_width="@dimen/login_width"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_20"
+                android:paddingTop="@dimen/button_pad"
+                android:paddingBottom="@dimen/button_pad"
+                android:background="#ffffff"
+                android:text="账号登陆"
+                android:onClick="@{() -> presenter.companyLogin(user)}"
+                android:gravity="center"
+                />
+        </LinearLayout>
+    </FrameLayout>
+</layout>
