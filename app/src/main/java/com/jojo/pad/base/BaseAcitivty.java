@@ -1,11 +1,9 @@
 package com.jojo.pad.base;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.jojo.pad.util.LogUtil;
 import com.jojo.pad.util.ToastUtil;
 
 import butterknife.ButterKnife;
@@ -20,15 +18,17 @@ public abstract class BaseAcitivty extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataBinding();
-        ButterKnife.bind(this);
+        if (getLayoutId() != 0){
+            setContentView(getLayoutId());
+        }
+        unbinder = ButterKnife.bind(this);
         initView();
         setListener();
         initData();
 
     }
 
-    public abstract void dataBinding();
+    public abstract int getLayoutId();
     public abstract void initView();
     public abstract void setListener();
     public abstract void initData();

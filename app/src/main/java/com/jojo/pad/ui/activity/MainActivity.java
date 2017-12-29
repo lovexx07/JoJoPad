@@ -4,9 +4,10 @@ import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 
 public class MainActivity extends BaseAcitivty {
+
     @Override
-    public void dataBinding() {
-        setContentView(R.layout.activity_main);
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
     @Override

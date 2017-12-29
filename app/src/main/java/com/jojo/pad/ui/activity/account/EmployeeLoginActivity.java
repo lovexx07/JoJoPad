@@ -8,9 +8,10 @@ import com.jojo.pad.base.BaseAcitivty;
  */
 public class EmployeeLoginActivity extends BaseAcitivty {
 
+
     @Override
-    public void dataBinding() {
-        setContentView(R.layout.activity_employee_login);
+    public int getLayoutId() {
+        return R.layout.activity_employee_login;
     }
 
     @Override

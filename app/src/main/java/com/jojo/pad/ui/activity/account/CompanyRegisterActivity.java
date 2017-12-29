@@ -7,9 +7,10 @@ import com.jojo.pad.base.BaseAcitivty;
  *
  */
 public class CompanyRegisterActivity extends BaseAcitivty {
+
     @Override
-    public void dataBinding() {
-        setContentView(R.layout.activity_company_register);
+    public int getLayoutId() {
+        return R.layout.activity_company_register;
     }
 
     @Override
@@ -26,4 +27,6 @@ public class CompanyRegisterActivity extends BaseAcitivty {
     public void initData() {
 
     }
+
+
 }

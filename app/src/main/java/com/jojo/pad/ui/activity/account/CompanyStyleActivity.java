@@ -14,9 +14,10 @@ import butterknife.BindView;
 public class CompanyStyleActivity extends BaseAcitivty {
     @BindView(R.id.ll)
     LinearLayout ll;
+
     @Override
-    public void dataBinding() {
-        setContentView(R.layout.activity_company_style);
+    public int getLayoutId() {
+        return R.layout.activity_company_style;
     }
 
     @Override

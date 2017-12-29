@@ -12,9 +12,10 @@ import com.jojo.pad.util.SharedPreferencesUtil;
 
 public class SplashActivity extends BaseAcitivty {
     @Override
-    public void dataBinding() {
-        setContentView(R.layout.activity_splash);
+    public int getLayoutId() {
+        return R.layout.activity_splash;
     }
+
     @Override
     public void initView() {
 
@@ -43,4 +44,5 @@ public class SplashActivity extends BaseAcitivty {
             }
         }, 3000);
     }
+
 }

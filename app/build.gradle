@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
-    dataBinding.enabled = true
     defaultConfig {
         applicationId "com.jojo.pad"
         minSdkVersion 15
