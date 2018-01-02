@@ -2,6 +2,7 @@ package com.jojo.pad.app;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.Utils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -18,8 +19,9 @@ public class MyApplication extends Application {
         super.onCreate();
         myApplication = this;
         initLogger();
-
+        Utils.init(this);
     }
+
     public static Application getInstance(){
         return myApplication;
     }

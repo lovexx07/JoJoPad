@@ -8,7 +8,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-
         >
 
         <com.jojo.pad.widget.CircleImageView
@@ -22,7 +21,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="工号"
-            android:text="@={user.account}"
+            android:text="1001"
+            android:id="@+id/et_num"
             android:textSize="@dimen/text_size_20" />
 
         <EditText
@@ -30,18 +30,19 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="密码"
-            android:text="@={user.password}"
+            android:text="1001"
+            android:id="@+id/et_paw"
             android:textSize="@dimen/text_size_20" />
 
-        <Button
+        <TextView
             android:layout_width="@dimen/login_width"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:gravity="center"
-            android:onClick="@{() -> presenter.employeeLogin(user)}"
             android:paddingBottom="@dimen/button_pad"
             android:paddingTop="@dimen/button_pad"
             android:text="员工登陆"
+            android:id="@+id/bt_confirm"
             android:textSize="@dimen/text_size_20" />
     </LinearLayout>
 </FrameLayout>

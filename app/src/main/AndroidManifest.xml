@@ -11,9 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.MainActivity" />
-        <activity android:name=".ui.activity.SplashActivity">
-
-        </activity>
+        <activity android:name=".ui.activity.SplashActivity" />
         <activity android:name=".ui.activity.account.CompanyLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +21,9 @@
         </activity>
         <activity android:name=".ui.activity.account.EmployeeLoginActivity" />
         <activity android:name=".ui.activity.account.CompanyRegisterActivity" />
-        <activity android:name=".ui.activity.account.CompanyStyleActivity"/>
+        <activity android:name=".ui.activity.account.CompanyStyleActivity" />
+        <activity android:name=".ui.activity.companystyle.NormalCompanyActivity" />
+        <activity android:name=".ui.activity.companystyle.SpecialCompanyActivity"></activity>
     </application>
 
 </manifest>

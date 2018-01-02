@@ -22,22 +22,27 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="账号名称/邮箱/手机号"
+            android:text="jojo2904"
+            android:id="@+id/et_account"
             android:textSize="@dimen/text_size_20" />
 
         <EditText
             android:layout_width="@dimen/login_width"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:id="@+id/et_paw"
             android:hint="输入密码"
+            android:text="123456"
             android:textSize="@dimen/text_size_20" />
 
-        <Button
+        <TextView
             android:layout_width="@dimen/login_width"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:gravity="center"
             android:paddingBottom="@dimen/button_pad"
             android:paddingTop="@dimen/button_pad"
+            android:id="@+id/bt_confirm"
             android:text="账号登陆"
             android:textSize="@dimen/text_size_20" />
     </LinearLayout>

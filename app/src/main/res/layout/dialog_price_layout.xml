@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_f1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            android:text="无码商品"
+            android:textSize="@dimen/text_size_16" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_5"
+            android:src="@drawable/close" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="单价" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp_10"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="@dimen/text_size_20" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_5e"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/table_num"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/layout_input_amount_style"
+                    android:layout_marginTop="@dimen/dp_1">
+
+                    <Button
+                        android:id="@+id/btn_1"
+                        style="@style/btn_input_amount_style"
+                        android:layout_marginRight="1dp"
+                        android:background="@drawable/number_press_select"
+                        android:text="1" />
+
+                    <Button
+                        android:id="@+id/btn_2"
+                        style="@style/btn_input_amount_style"
+                        android:layout_marginRight="1dp"
+                        android:background="@drawable/number_press_select"
+                        android:text="2" />
+
+                    <Button
+                        android:id="@+id/btn_3"
+                        style="@style/btn_input_amount_style"
+                        android:background="@drawable/number_press_select"
+                        android:text="3" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/layout_input_amount_style">
+
+                    <Button
+                        android:id="@+id/btn_4"
+                        style="@style/btn_input_amount_style"
+                        android:layout_marginRight="1dp"
+                        android:background="@drawable/number_press_select"
+                        android:text="4" />
+
+                    <Button
+                        android:id="@+id/btn_5"
+                        style="@style/btn_input_amount_style"
+                        android:layout_marginRight="1dp"
+                        android:background="@drawable/number_press_select"
+                        android:text="5" />
+
+                    <Button
+                        android:id="@+id/btn_6"
+                        style="@style/btn_input_amount_style"
+                        android:background="@drawable/number_press_select"
+                        android:text="6" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/layout_input_amount_style">
+
+                    <Button
+                        android:id="@+id/btn_7"
+                        style="@style/btn_input_amount_style"
+                        android:layout_marginRight="1dp"
+                        android:background="@drawable/number_press_select"
+                        android:text="7" />
+
+                    <Button
+                        android:id="@+id/btn_8"
+                        style="@style/btn_input_amount_style"
+                        android:layout_marginRight="1dp"
+                        android:background="@drawable/number_press_select"
+                        android:text="8" />
+
+                    <Button
+                        android:id="@+id/btn_9"
+                        style="@style/btn_input_amount_style"
+                        android:background="@drawable/number_press_select"
+                        android:text="9" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/layout_input_amount_style">
+
+                    <Button
+                        android:id="@+id/btn_t"
+                        style="@style/btn_input_amount_style"
+                        android:layout_marginRight="1dp"
+                        android:background="@drawable/number_press_select"
+                        android:text="." />
+
+                    <Button
+                        android:id="@+id/btn_0"
+                        style="@style/btn_input_amount_style"
+                        android:layout_marginRight="1dp"
+                        android:background="@drawable/number_press_select"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/btn_d"
+                        style="@style/btn_input_amount_style"
+                        android:src="@mipmap/keyboard_backspace"
+                        android:background="@drawable/number_press_select"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="1"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:background="@drawable/confim_press_select"
+            android:textSize="@dimen/text_size_20" />
+    </LinearLayout>
+</LinearLayout>

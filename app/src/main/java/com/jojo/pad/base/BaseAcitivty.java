@@ -1,10 +1,11 @@
 package com.jojo.pad.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.jojo.pad.util.ToastUtil;
+import com.blankj.utilcode.util.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -15,12 +16,14 @@ import butterknife.Unbinder;
 
 public abstract class BaseAcitivty extends AppCompatActivity{
     private Unbinder unbinder;
+    protected Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getLayoutId() != 0){
             setContentView(getLayoutId());
         }
+        mContext = this;
         unbinder = ButterKnife.bind(this);
         initView();
         setListener();
@@ -62,13 +65,13 @@ public abstract class BaseAcitivty extends AppCompatActivity{
     }
 
     protected void showToast(String content){
-        ToastUtil.show(content);
+        ToastUtils.showShort(content);
     }
 
     protected void showError(String error) {
-        ToastUtil.show(error);
+        ToastUtils.showShort(error);
     }
     protected void showToast(int resid){
-        ToastUtil.show(resid);
+        ToastUtils.showShort(resid);
     }
 }

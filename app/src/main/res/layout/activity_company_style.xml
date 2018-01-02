@@ -14,12 +14,12 @@
         android:background="@color/colorAccent"
         android:padding="@dimen/button_pad"
         android:layout_margin="@dimen/button_pad"
-        android:id="@+id/ll"
+        android:id="@+id/ll_1"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="销售类"
+            android:text="零售类"
             android:gravity="center"
             android:textSize="@dimen/text_size_20"
             />
@@ -33,11 +33,12 @@
         android:background="@color/colorAccent"
         android:padding="@dimen/button_pad"
         android:layout_margin="@dimen/button_pad"
+        android:id="@+id/ll_2"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="销售类"
+            android:text="餐饮类"
             android:gravity="center"
             android:textSize="@dimen/text_size_20"
             />
@@ -52,11 +53,12 @@
         android:background="@color/colorAccent"
         android:padding="@dimen/button_pad"
         android:layout_margin="@dimen/button_pad"
+        android:id="@+id/ll_3"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="销售类"
+            android:text="服装类"
             android:gravity="center"
             android:textSize="@dimen/text_size_20"
             />
