@@ -7,15 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-    <declare-styleable name="NumberAddSubView">
-        <attr name="value" format="integer|reference"/>
-        <attr name="minValue" format="integer|reference"/>
-        <attr name="maxValue" format="integer|reference"/>
-        <attr name="btnAddBackground" format="reference"/>
-        <attr name="btnSubBackground" format="reference"/>
-        <attr name="textViewBackground" format="reference"/>
-    </declare-styleable>
     <style name="Dialog" parent="android:style/Theme.Dialog">
         <item name="android:background">#00000000</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -39,4 +30,25 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
+
+
+
+    <declare-styleable name="NumberAddSubView">
+        <attr name="value" format="integer|reference"/>
+        <attr name="minValue" format="integer|reference"/>
+        <attr name="maxValue" format="integer|reference"/>
+        <attr name="btnAddBackground" format="reference"/>
+        <attr name="btnSubBackground" format="reference"/>
+        <attr name="textViewBackground" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="SearchView">
+        <attr name="hint" format="string"/>
+        <attr name="gravity" format="integer"/>
+    </declare-styleable>
+    <declare-styleable name="TransferItem">
+        <attr name="num" format="float"/>
+        <attr name="title" format="string"/>
+    </declare-styleable>
 </resources>

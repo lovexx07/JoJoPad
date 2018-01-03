@@ -55,9 +55,12 @@ public abstract class BaseAcitivty extends AppCompatActivity{
     }
     public void toActivityForResult(Class clazz, Bundle bundle,int requestCode){
         Intent intent = new Intent(this,clazz);
-        intent.putExtras(bundle);
+        if (bundle != null){
+            intent.putExtras(bundle);
+        }
         startActivityForResult(intent,requestCode);
     }
+
     public void toActivity(Class clazz, String name,String value){
         Intent intent = new Intent(this,clazz);
         intent.putExtra(name,value);

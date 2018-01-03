@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/dp_10"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回"
+            android:drawableLeft="@mipmap/left"
+            android:padding="@dimen/dp_5"
+            android:textSize="@dimen/sp_14"
+            android:drawablePadding="@dimen/dp_5"
+            android:id="@+id/tv_back"
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            />
+        <com.jojo.pad.widget.SearchView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            app:hint="输入卡号/手机/姓名/搜索会员"
+            android:gravity="left"
+            android:id="@+id/searchview"
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/help"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_10"
+            android:textSize="@dimen/text_size_18"
+            android:text="帮助"
+            android:id="@+id/iv_help" />
+    </LinearLayout>
+    <include layout="@layout/line" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

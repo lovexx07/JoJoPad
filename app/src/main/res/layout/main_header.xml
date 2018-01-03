@@ -40,11 +40,17 @@
         android:layout_weight="1"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/phone"
+            android:drawableLeft="@drawable/phone"
             android:layout_gravity="right"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:textSize="@dimen/text_size_18"
+            android:textColor="@color/white"
+            android:text="帮助"
             android:id="@+id/iv_help" />
+
     </FrameLayout>
 </LinearLayout>

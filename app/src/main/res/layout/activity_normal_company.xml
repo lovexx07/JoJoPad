@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/main_header"
@@ -23,18 +22,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1" />
 
-        <SearchView
-            android:id="@+id/search_view"
+        <com.jojo.pad.widget.SearchView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#ffffff" />
+            android:id="@+id/search_view"
+            android:background="@drawable/search_backgroud"
+            />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_weight="2"
+            android:id="@+id/ll_member"
             android:orientation="horizontal">
 
             <ImageView

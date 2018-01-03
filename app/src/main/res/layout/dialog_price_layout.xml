@@ -42,6 +42,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:paddingBottom="@dimen/dp_10"
+        android:text="0"
         android:textColor="@android:color/holo_red_light"
         android:textSize="@dimen/text_size_20" />
 
@@ -161,7 +162,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
+        <Button
             android:id="@+id/tv_confirm"
             android:layout_width="0dp"
             android:layout_height="match_parent"

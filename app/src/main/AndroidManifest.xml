@@ -23,7 +23,9 @@
         <activity android:name=".ui.activity.account.CompanyRegisterActivity" />
         <activity android:name=".ui.activity.account.CompanyStyleActivity" />
         <activity android:name=".ui.activity.companystyle.NormalCompanyActivity" />
-        <activity android:name=".ui.activity.companystyle.SpecialCompanyActivity"></activity>
+        <activity android:name=".ui.activity.companystyle.SpecialCompanyActivity" />
+        <activity android:name=".ui.activity.MemberActivity" />
+        <activity android:name=".ui.activity.TransferActivity"></activity>
     </application>
 
 </manifest>
