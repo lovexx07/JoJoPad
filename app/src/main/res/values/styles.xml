@@ -51,4 +51,14 @@
         <attr name="num" format="float"/>
         <attr name="title" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="PadHeader">
+        <attr name="backcontent" format="string"/>
+        <attr name="showdate" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1" />
+        </attr>
+        <attr name="background" format="reference"/>
+        <attr name="textcolor" format="reference"/>
+    </declare-styleable>
 </resources>

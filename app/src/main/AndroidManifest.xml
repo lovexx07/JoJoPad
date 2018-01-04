@@ -25,7 +25,12 @@
         <activity android:name=".ui.activity.companystyle.NormalCompanyActivity" />
         <activity android:name=".ui.activity.companystyle.SpecialCompanyActivity" />
         <activity android:name=".ui.activity.MemberActivity" />
-        <activity android:name=".ui.activity.TransferActivity"></activity>
+        <activity android:name=".ui.activity.TransferActivity" />
+        <activity android:name=".ui.activity.AddMemberActivity" />
+        <activity android:name=".ui.activity.SaleDocumesActivity" />
+        <activity android:name=".ui.activity.NewGoodsActivity" />
+        <activity android:name=".ui.activity.DocumentsManageActivity" />
+        <activity android:name=".ui.activity.GoodsManageActivity"></activity>
     </application>
 
 </manifest>

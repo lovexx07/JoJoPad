@@ -1,7 +1,6 @@
 package com.jojo.pad.ui.activity.companystyle;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,22 +8,26 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.constant.Constant;
+import com.jojo.pad.constant.MenuItem;
 import com.jojo.pad.dialog.GoodsSearchDialog;
 import com.jojo.pad.dialog.MainMenuDialog;
 import com.jojo.pad.dialog.NoIdGoodsPriceDialog;
 import com.jojo.pad.listener.ViewClickListener;
+import com.jojo.pad.ui.activity.AddMemberActivity;
+import com.jojo.pad.ui.activity.GoodsManageActivity;
+import com.jojo.pad.ui.activity.DocumentsManageActivity;
 import com.jojo.pad.ui.activity.MemberActivity;
+import com.jojo.pad.ui.activity.NewGoodsActivity;
+import com.jojo.pad.ui.activity.SaleDocumesActivity;
 import com.jojo.pad.ui.activity.TransferActivity;
 import com.jojo.pad.widget.SearchView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 一般零售公司，商品类型较多
@@ -101,8 +104,33 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
 
     private void checkMenu(String msg) {
         switch (msg) {
-            case "交接班":
+            case MenuItem.transfer:
                 toActivity(TransferActivity.class);
+                break;
+            case MenuItem.openCash:
+                showToast("打开钱箱命令");
+                break;
+            case MenuItem.returnGoods:
+                showToast("退货");
+                break;
+            case MenuItem.addMembers:
+                toActivity(AddMemberActivity.class);
+                break;
+            case MenuItem.salesDocumes:
+                toActivity(SaleDocumesActivity.class);
+                break;
+            case MenuItem.newGoods:
+                toActivity(NewGoodsActivity.class);
+                break;
+            case MenuItem.inventory:
+                toActivity(GoodsManageActivity.class,"type",MenuItem.inventory);
+                break;
+
+            case MenuItem.orderApplication:
+                toActivity(DocumentsManageActivity.class);
+                break;
+            case MenuItem.condiments:
+                toActivity(GoodsManageActivity.class,"type",MenuItem.condiments);
                 break;
             default:
                 break;

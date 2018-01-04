@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.jojo.pad.R;
 import com.jojo.pad.adapter.MainMenuAdapter;
 import com.jojo.pad.constant.Constant;
+import com.jojo.pad.constant.MenuItem;
 import com.jojo.pad.listener.ViewClickListener;
 import com.jojo.pad.model.bean.MainMenuBean;
 
@@ -47,9 +48,9 @@ public class MainMenuDialog extends Dialog {
         @BindView(R.id.gridview)
         GridView gridview;
         private String[] titles = new String[]{
-                "交接班", "打开钱箱", "退货", "添加会员", "销售单据",
-                "新增商品", "盘点", "订货申请", "调货", "物流通知",
-                "网络订单", "消息中心", "报损", "系统设置"
+                MenuItem.transfer, MenuItem.openCash, MenuItem.returnGoods, MenuItem.addMembers, MenuItem.salesDocumes,
+                MenuItem.newGoods, MenuItem.inventory, MenuItem.orderApplication, MenuItem.condiments, MenuItem.logisticNotification,
+                MenuItem.newworkOrder, MenuItem.messageCenter, MenuItem.reportLoss, MenuItem.systemSetup
         };
 
         private Integer[] images = {
@@ -60,7 +61,6 @@ public class MainMenuDialog extends Dialog {
                 R.drawable.app_logo, R.drawable.app_logo,
                 R.drawable.app_logo, R.drawable.app_logo,
                 R.drawable.app_logo, R.drawable.app_logo,
-
         };
 
         private Context context;
