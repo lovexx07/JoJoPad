@@ -5,6 +5,8 @@
     android:orientation="horizontal"
     android:padding="@dimen/dp_5"
     android:gravity="center_vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     >
 
     <ImageView
@@ -30,7 +32,9 @@
         android:gravity="center"
         android:focusable="true"
         android:singleLine="true"
-        android:background="@null" />
+        android:background="@null"
+        android:textSize="@dimen/text_size_16"
+        />
     <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/dp_10"
-    android:layout_marginRight="@dimen/dp_10"
     android:orientation="vertical"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_root"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,9 +27,12 @@
             android:padding="@dimen/dp_5"
             android:id="@+id/tv_num"
             android:text="0" />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_80"
+            android:layout_below="@+id/tv_title"
+            />
 
     </RelativeLayout>
-
-    <include layout="@layout/line" />
 </LinearLayout>

@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jojo.pad.R;
@@ -23,6 +23,8 @@ public class TransferItem extends LinearLayout {
     TextView tvTitle;
     @BindView(R.id.tv_num)
     TextView tvNum;
+    @BindView(R.id.ll_root)
+    RelativeLayout llRoot;
     private Context context;
 
     public TransferItem(Context context) {
@@ -41,9 +43,16 @@ public class TransferItem extends LinearLayout {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TransferItem, defStyleAttr, 0);
             String num = a.getString(R.styleable.TransferItem_num);
             String title = a.getString(R.styleable.TransferItem_title);
+            int margin = a.getInteger(R.styleable.TransferItem_margin,10);
 
             tvTitle.setText(title);
             tvNum.setText(num);
+
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(margin,0, margin, 0);
+            llRoot.setLayoutParams(params);
         }
     }
 

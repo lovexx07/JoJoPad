@@ -38,6 +38,12 @@ public class GoodsManageActivity extends BaseAcitivty {
             case MenuItem.condiments:
                 header.setBackContent("调货");
                 break;
+            case MenuItem.reportLoss:
+                header.setBackContent("报损");
+                break;
+            case MenuItem.returnGoods:
+                header.setBackContent("退货");
+                break;
             default:
                 ToastUtils.showShort("错误");
                 break;

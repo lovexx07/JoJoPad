@@ -1,6 +1,7 @@
 package com.jojo.pad.widget;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.jojo.pad.R;
 import com.jojo.pad.constant.Constant;
 import com.jojo.pad.listener.ViewClickListener;
@@ -54,10 +56,11 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
 
             et_input.setHint(hint);
             et_input.setGravity(gravity);
+
         }
     }
 
-    private void initView(Context context) {
+    private void initView(final Context context) {
         //第三个参数：把当前View加载到NumberAddSubView控件上
         View.inflate(context, R.layout.widget_search, this);
         ButterKnife.bind(this);

@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         app:backcontent="返回"
         app:showdate="visible"
+        android:id="@+id/pheader"
         />
 
     <include layout="@layout/line" />

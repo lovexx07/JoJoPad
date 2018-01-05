@@ -20,10 +20,13 @@ import com.jojo.pad.dialog.NoIdGoodsPriceDialog;
 import com.jojo.pad.listener.ViewClickListener;
 import com.jojo.pad.ui.activity.AddMemberActivity;
 import com.jojo.pad.ui.activity.GoodsManageActivity;
-import com.jojo.pad.ui.activity.DocumentsManageActivity;
+import com.jojo.pad.ui.activity.OrderApplicationActivity;
+import com.jojo.pad.ui.activity.LogisticActivity;
 import com.jojo.pad.ui.activity.MemberActivity;
+import com.jojo.pad.ui.activity.MessageCenterActivity;
 import com.jojo.pad.ui.activity.NewGoodsActivity;
 import com.jojo.pad.ui.activity.SaleDocumesActivity;
+import com.jojo.pad.ui.activity.SystemSetupActivity;
 import com.jojo.pad.ui.activity.TransferActivity;
 import com.jojo.pad.widget.SearchView;
 
@@ -111,7 +114,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                 showToast("打开钱箱命令");
                 break;
             case MenuItem.returnGoods:
-                showToast("退货");
+                toActivity(GoodsManageActivity.class,"type",MenuItem.returnGoods);
                 break;
             case MenuItem.addMembers:
                 toActivity(AddMemberActivity.class);
@@ -125,12 +128,26 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
             case MenuItem.inventory:
                 toActivity(GoodsManageActivity.class,"type",MenuItem.inventory);
                 break;
-
             case MenuItem.orderApplication:
-                toActivity(DocumentsManageActivity.class);
+                toActivity(OrderApplicationActivity.class);
                 break;
             case MenuItem.condiments:
                 toActivity(GoodsManageActivity.class,"type",MenuItem.condiments);
+                break;
+            case MenuItem.logisticNotification:
+                toActivity(LogisticActivity.class);
+                break;
+            case MenuItem.newworkOrder:
+                ToastUtils.showShort("开发中");
+                break;
+            case MenuItem.messageCenter:
+                toActivity(MessageCenterActivity.class);
+                break;
+            case MenuItem.reportLoss:
+                toActivity(GoodsManageActivity.class,"type",MenuItem.reportLoss);
+                break;
+            case MenuItem.systemSetup:
+                toActivity(SystemSetupActivity.class);
                 break;
             default:
                 break;

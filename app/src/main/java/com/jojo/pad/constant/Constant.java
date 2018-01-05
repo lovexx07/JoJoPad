@@ -16,7 +16,8 @@ public interface Constant {
     int VIEW_CLICK_TYPE_SEARCH = 2;
     //商品查返回
     int VIEW_CLICK_TYPE_SEARCH_DIALOG = 3;
-
+    //时间选择
+    int VIEW_CLICK_TYPE_DATE_PICKER = 4;
 
     /**
      * 跳转 返回参数

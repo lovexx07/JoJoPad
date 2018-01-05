@@ -29,8 +29,14 @@
         <activity android:name=".ui.activity.AddMemberActivity" />
         <activity android:name=".ui.activity.SaleDocumesActivity" />
         <activity android:name=".ui.activity.NewGoodsActivity" />
-        <activity android:name=".ui.activity.DocumentsManageActivity" />
-        <activity android:name=".ui.activity.GoodsManageActivity"></activity>
+        <activity android:name=".ui.activity.OrderApplicationActivity" />
+        <activity android:name=".ui.activity.GoodsManageActivity" />
+        <activity android:name=".ui.activity.LogisticActivity" />
+        <activity android:name=".ui.activity.MessageCenterActivity" />
+        <activity android:name=".ui.activity.SystemSetupActivity" />
+        <activity android:name=".ui.activity.TransferDayActivity">
+
+        </activity>
     </application>
 
 </manifest>
