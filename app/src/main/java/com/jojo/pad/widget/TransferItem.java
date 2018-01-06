@@ -44,6 +44,7 @@ public class TransferItem extends LinearLayout {
             String num = a.getString(R.styleable.TransferItem_num);
             String title = a.getString(R.styleable.TransferItem_title);
             int margin = a.getInteger(R.styleable.TransferItem_margin,10);
+            int buttonmargin = a.getInteger(R.styleable.TransferItem_line_button,0);
 
             tvTitle.setText(title);
             tvNum.setText(num);
@@ -53,6 +54,11 @@ public class TransferItem extends LinearLayout {
                     LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params.setMargins(margin,0, margin, 0);
             llRoot.setLayoutParams(params);
+
+            RelativeLayout.LayoutParams buttonparams = new RelativeLayout.LayoutParams(
+                    LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            buttonparams.setMargins(0,0, 0, buttonmargin);
+            tvTitle.setLayoutParams(buttonparams);
         }
     }
 

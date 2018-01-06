@@ -3,36 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/ll_root"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_5"
             android:text="门店"
-            android:id="@+id/tv_title"
             android:textSize="@dimen/sp_16" />
 
         <TextView
+            android:id="@+id/tv_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:padding="@dimen/dp_5"
-            android:id="@+id/tv_num"
-            android:text="0" />
+            android:padding="@dimen/dp_5" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray_80"
             android:layout_below="@+id/tv_title"
-            />
+            android:background="@color/gray_80" />
 
     </RelativeLayout>
 </LinearLayout>

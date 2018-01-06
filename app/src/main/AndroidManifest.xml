@@ -28,7 +28,8 @@
         <activity android:name=".ui.activity.TransferActivity" />
         <activity android:name=".ui.activity.AddMemberActivity" />
         <activity android:name=".ui.activity.SaleDocumesActivity" />
-        <activity android:name=".ui.activity.NewGoodsActivity" />
+        <activity android:name=".ui.activity.NewGoodsActivity"/>
+
         <activity android:name=".ui.activity.OrderApplicationActivity" />
         <activity android:name=".ui.activity.GoodsManageActivity" />
         <activity android:name=".ui.activity.LogisticActivity" />

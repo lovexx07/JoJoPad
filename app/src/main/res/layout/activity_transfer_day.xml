@@ -119,6 +119,54 @@
                 app:num="0"
                 app:title="销售总额"
                 app:margin="0"
+                app:line_button="10"
+                />
+            <com.jojo.pad.widget.TransferItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:num="0"
+                app:title="销售单数"
+                app:margin="0"
+                app:line_button="10"
+                />
+            <com.jojo.pad.widget.TransferItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:num="0"
+                app:title="销售利润"
+                app:margin="0"
+                app:line_button="10"
+                />
+            <com.jojo.pad.widget.TransferItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:num="0"
+                app:title="次卡消费"
+                app:margin="0"
+                app:line_button="10"
+                />
+            <com.jojo.pad.widget.TransferItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:num="充值金额:0 赠送金额:0"
+                app:title="会员充值"
+                app:margin="0"
+                app:line_button="10"
+                />
+            <com.jojo.pad.widget.TransferItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="支付统计"
+                app:margin="0"
+                app:line_button="10"
+                />
+            <com.jojo.pad.widget.TransferItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:num=""
+                app:title="营销统计"
+                app:margin="0"
+                app:line_button="10"
                 />
         </LinearLayout>
 
@@ -132,12 +180,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/gray_38"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/dp_30"
-        android:paddingRight="@dimen/dp_30">
-
+        android:orientation="horizontal"
+        >
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_15"
@@ -153,10 +204,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@color/main_heaer"
-                android:paddingLeft="@dimen/dp_15"
-                android:paddingRight="@dimen/dp_15"
+                android:paddingLeft="@dimen/dp_30"
+                android:paddingRight="@dimen/dp_30"
                 android:text="提交日结"
                 android:textColor="@color/gray_d0" />
         </RelativeLayout>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 </LinearLayout>

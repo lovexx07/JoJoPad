@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
+import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +49,7 @@ public class CompanyLoginActivity extends BaseAcitivty {
                 String password = etPaw.getText().toString();
 
                 if ("jojo2904".equals(account) && "123456".equals(password)){
-                    toActivity(CompanyStyleActivity.class);
+                    toActivity(NormalCompanyActivity.class);
                 }
             }
         });

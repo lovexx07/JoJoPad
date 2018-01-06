@@ -48,9 +48,10 @@
         <attr name="gravity" format="integer"/>
     </declare-styleable>
     <declare-styleable name="TransferItem">
-        <attr name="num" format="float"/>
+        <attr name="num" format="string"/>
         <attr name="title" format="string"/>
         <attr name="margin" format="integer"/>
+        <attr name="line_button" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="PadHeader">
@@ -62,4 +63,18 @@
         <attr name="background" format="reference"/>
         <attr name="textcolor" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="EditTextItem">
+        <attr name="edittitle" format="string"/>
+        <attr name="morecontent" format="string"/>
+        <attr name="checkcontent" format="string"/>
+        <attr name="showcheck" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1" />
+        </attr>
+        <attr name="showmore" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1" />
+        </attr>
+    </declare-styleable>
+
 </resources>
