@@ -9,6 +9,8 @@ import com.jojo.pad.ComAssistantActivity;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
+import com.jojo.pad.util.MainActivity;
+import com.jojo.pad.uu.MainActivity2;
 import com.jojo.pad.widget.CircleImageView;
 
 import butterknife.BindView;
@@ -43,7 +45,7 @@ public class CompanyLoginActivity extends BaseAcitivty {
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toActivity(ComAssistantActivity.class);
+                toActivity(MainActivity2.class);
             }
         });
     }
