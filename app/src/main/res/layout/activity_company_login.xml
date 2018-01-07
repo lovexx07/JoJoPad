@@ -15,7 +15,9 @@
             android:layout_width="@dimen/logo"
             android:layout_height="@dimen/logo"
             android:layout_gravity="center"
-            android:src="@drawable/app_logo" />
+            android:src="@drawable/app_logo"
+            android:id="@+id/header"
+            />
 
         <EditText
             android:layout_width="@dimen/login_width"

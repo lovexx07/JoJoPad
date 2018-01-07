@@ -2,13 +2,14 @@ package com.jojo.pad.ui.activity.account;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jojo.pad.ComAssistantActivity;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
+import com.jojo.pad.widget.CircleImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +25,8 @@ public class CompanyLoginActivity extends BaseAcitivty {
     EditText etPaw;
     @BindView(R.id.bt_confirm)
     TextView btConfirm;
+    @BindView(R.id.header)
+    CircleImageView header;
 
     @Override
     public int getLayoutId() {
@@ -37,7 +40,12 @@ public class CompanyLoginActivity extends BaseAcitivty {
 
     @Override
     public void setListener() {
-
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toActivity(ComAssistantActivity.class);
+            }
+        });
     }
 
     @Override
@@ -48,10 +56,17 @@ public class CompanyLoginActivity extends BaseAcitivty {
                 String account = etAccount.getText().toString();
                 String password = etPaw.getText().toString();
 
-                if ("jojo2904".equals(account) && "123456".equals(password)){
+                if ("jojo2904".equals(account) && "123456".equals(password)) {
                     toActivity(NormalCompanyActivity.class);
                 }
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

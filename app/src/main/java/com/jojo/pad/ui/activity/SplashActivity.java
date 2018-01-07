@@ -8,7 +8,6 @@ import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.constant.SPKey;
 import com.jojo.pad.ui.activity.account.CompanyLoginActivity;
-import com.jojo.pad.ui.activity.account.EmployeeLoginActivity;
 
 public class SplashActivity extends BaseAcitivty {
     @Override
@@ -32,15 +31,8 @@ public class SplashActivity extends BaseAcitivty {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (islogin){
-                    if (islogin_em) {
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    }else {
-                        startActivity(new Intent(SplashActivity.this, EmployeeLoginActivity.class));
-                    }
-                }else {
+
                     startActivity(new Intent(SplashActivity.this, CompanyLoginActivity.class));
-                }
             }
         }, 3000);
     }

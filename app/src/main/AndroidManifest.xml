@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".util.MainActivity" />
         <activity android:name=".ui.activity.SplashActivity" />
         <activity android:name=".ui.activity.account.CompanyLoginActivity">
             <intent-filter>
@@ -35,6 +35,9 @@
         <activity android:name=".ui.activity.LogisticActivity" />
         <activity android:name=".ui.activity.MessageCenterActivity" />
         <activity android:name=".ui.activity.SystemSetupActivity" />
+        <activity android:name=".ComAssistantActivity"
+            android:configChanges="orientation|keyboard"
+            />
         <activity android:name=".ui.activity.TransferDayActivity">
 
         </activity>
