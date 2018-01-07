@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jojo.pad.R;
@@ -33,8 +32,8 @@ import java.util.Iterator;
 public class UsbDemoActivity extends AppCompatActivity {
 
     private String TAG = UsbDemoActivity.class.getName();
+
     private UsbManager usbManager;
-    private TextView usbDevicesTv;
     /**
      * 满足的设备
      */
@@ -63,7 +62,6 @@ public class UsbDemoActivity extends AppCompatActivity {
     private UsbDeviceConnection myDeviceConnection;
 
 
-    private UsbManager mUsbManager;
     private PendingIntent mPermissionIntent;
     private static final String ACTION_USB_PERMISSION = "com.usb.printer.USB_PERMISSION";
 
@@ -74,7 +72,6 @@ public class UsbDemoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        usbDevicesTv = (TextView) findViewById(R.id.tv_usb_devices);
 
         FloatingActionButton connectFab = (FloatingActionButton) findViewById(R.id.fab_connect);
         connectFab.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +105,6 @@ public class UsbDemoActivity extends AppCompatActivity {
             }
         });
 
-        mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
         mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
     }
 
@@ -122,14 +118,11 @@ public class UsbDemoActivity extends AppCompatActivity {
         while(deviceIterator.hasNext()){
             UsbDevice device = deviceIterator.next();
             sb.append(devicesString(device));
-//                    sb.append(device.toString());
-//                    sb.append("\n\n");
             if (device.getVendorId() == 1155 && device.getProductId() == 1803) {
                 myUsbDevice = device; // 获取USBDevice
-                mUsbManager.requestPermission(device, mPermissionIntent);
+                usbManager.requestPermission(device, mPermissionIntent);
             }
         }
-        usbDevicesTv.setText(sb.toString());
     }
 
     /**

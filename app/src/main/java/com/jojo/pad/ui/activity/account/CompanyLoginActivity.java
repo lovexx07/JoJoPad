@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
+import com.jojo.pad.print.PrintDemoActivity;
 import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
 import com.jojo.pad.util.UsbDemoActivity;
 import com.jojo.pad.widget.CircleImageView;
@@ -47,6 +48,7 @@ public class CompanyLoginActivity extends BaseAcitivty {
         header.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                toActivity(PrintDemoActivity.class);
                 return true;
             }
         });

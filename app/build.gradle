@@ -19,8 +19,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
-            moduleName "serial_port"
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' ,'armeabi-v7a', 'x86_64'//, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+
     }
     // 编译选项
     compileOptions {
@@ -35,10 +37,7 @@ android {
             signingConfig signingConfigs.relealse
         }
     }
-    sourceSets.main {
-        jni.srcDirs = []
-        jniLibs.srcDir 'src/main/libs'
-    }
+
 }
 
 dependencies {
@@ -57,5 +56,5 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
     implementation 'com.android.support:design:27.0.2'
-    implementation files('src/main/libs/regoPrintLibV3.0.05.jar')
+    compile 'com.tencent.bugly:crashreport:latest.release'
 }

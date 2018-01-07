@@ -5,6 +5,12 @@
     <!-- 声明使用usb -->
     <uses-feature android:name="android.hardware.usb.host" />
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -13,6 +19,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- 配置bugly组件的APP ID，bugly组件为腾讯提供的用于crash上报和分析的开放组件，如果您不需要该组件，可以自行移除 -->
+        <meta-data
+            android:name="BUGLY_APPID"
+            android:value="5c68d954bf" />
+        <!-- 配置bugly组件的APP渠道号 -->
+        <meta-data
+            android:name="BUGLY_APP_CHANNEL"
+            android:value="RDM版本" />
+        <!-- 配置bugly组件的调试模式（true或者false） -->
+        <meta-data
+            android:name="BUGLY_ENABLE_DEBUG"
+            android:value="true" />
         <activity android:name=".ui.activity.SplashActivity" />
         <activity android:name=".ui.activity.account.CompanyLoginActivity">
             <intent-filter>
@@ -42,14 +60,18 @@
             android:label="@string/title_activity_usb_demo"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <!--usb设备的动作-->
+
+                <!-- usb设备的动作 -->
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- android设备的信息过滤-->
-            <meta-data android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
-                android:resource="@xml/qwm_usb_xml"/>
+            <!-- android设备的信息过滤 -->
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/qwm_usb_xml" />
         </activity>
+
         <service
             android:name=".scaner.KeyEventService"
             android:enabled="true"
@@ -64,6 +86,7 @@
                 android:resource="@xml/accessibilityservice" />
         </service>
 
+        <activity android:name=".print.PrintDemoActivity"></activity>
     </application>
 
 </manifest>

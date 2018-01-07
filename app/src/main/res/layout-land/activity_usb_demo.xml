@@ -21,7 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_usb_demo" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_connect"
