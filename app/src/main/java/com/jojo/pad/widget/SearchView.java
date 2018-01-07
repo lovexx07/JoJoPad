@@ -28,6 +28,8 @@ import butterknife.ButterKnife;
 public class SearchView extends LinearLayout implements View.OnClickListener {
     @BindView(R.id.iv_search)
     ImageView iv_search;
+
+
     @BindView(R.id.et_input)
     EditText et_input;
     @BindView(R.id.iv_dele)
@@ -68,6 +70,13 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         iv_search.setOnClickListener(this);
         iv_dele.setOnClickListener(this);
     }
+    public void setEt_inputValue(String input) {
+        et_input.setText(input);
+        if (listener != null) {
+            listener.clickListener(input, Constant.VIEW_CLICK_TYPE_SEARCH);
+        }
+    }
+
 
     @Override
     public void onClick(View view) {

@@ -1,4 +1,4 @@
-package com.jojo.pad.uu;
+package com.jojo.pad.scaner;
 
 import android.accessibilityservice.AccessibilityService;
 import android.util.Log;

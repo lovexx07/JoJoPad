@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jojo.pad">
 
+    <!-- 声明使用usb -->
+    <uses-feature android:name="android.hardware.usb.host" />
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -27,33 +30,40 @@
         <activity android:name=".ui.activity.TransferActivity" />
         <activity android:name=".ui.activity.AddMemberActivity" />
         <activity android:name=".ui.activity.SaleDocumesActivity" />
-        <activity android:name=".ui.activity.NewGoodsActivity"/>
-
+        <activity android:name=".ui.activity.NewGoodsActivity" />
         <activity android:name=".ui.activity.OrderApplicationActivity" />
         <activity android:name=".ui.activity.GoodsManageActivity" />
         <activity android:name=".ui.activity.LogisticActivity" />
         <activity android:name=".ui.activity.MessageCenterActivity" />
         <activity android:name=".ui.activity.SystemSetupActivity" />
-        <activity android:name=".ComAssistantActivity"
-            android:configChanges="orientation|keyboard"
-            />
-        <activity android:name=".ui.activity.TransferDayActivity">
-
+        <activity android:name=".ui.activity.TransferDayActivity" />
+        <activity
+            android:name=".util.UsbDemoActivity"
+            android:label="@string/title_activity_usb_demo"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <!--usb设备的动作-->
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- android设备的信息过滤-->
+            <meta-data android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/qwm_usb_xml"/>
         </activity>
-        <activity android:name=".util.MainActivity"/>
-        <activity android:name=".uu.MainActivity2"/>
         <service
-            android:name=".uu.KeyEventService"
+            android:name=".scaner.KeyEventService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService"/>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/accessibilityservice"/>
+                android:resource="@xml/accessibilityservice" />
         </service>
+
     </application>
 
 </manifest>

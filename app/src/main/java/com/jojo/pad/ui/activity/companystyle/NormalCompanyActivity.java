@@ -1,12 +1,16 @@
 package com.jojo.pad.ui.activity.companystyle;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -18,6 +22,7 @@ import com.jojo.pad.dialog.GoodsSearchDialog;
 import com.jojo.pad.dialog.MainMenuDialog;
 import com.jojo.pad.dialog.NoIdGoodsPriceDialog;
 import com.jojo.pad.listener.ViewClickListener;
+import com.jojo.pad.scaner.BarcodeScannerResolver;
 import com.jojo.pad.ui.activity.AddMemberActivity;
 import com.jojo.pad.ui.activity.GoodsManageActivity;
 import com.jojo.pad.ui.activity.OrderApplicationActivity;
@@ -69,6 +74,8 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
     LinearLayout llMember;
 
     private ViewClickListener menuListener;
+    //扫码枪监听
+    private BarcodeScannerResolver mBarcodeScannerResolver;
 
     @Override
     public int getLayoutId() {
@@ -156,6 +163,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
 
     @Override
     public void setListener() {
+        startScanListenr();
         mainSet.setOnClickListener(this);
         ivInput.setOnClickListener(this);
         ivMessage.setOnClickListener(this);
@@ -210,5 +218,67 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                     LogUtils.e("onActivityResult");
             }
         }
+    }
+
+
+    /**
+     * 开始扫码监听按钮
+     *
+     */
+    public void startScanListenr() {
+        mBarcodeScannerResolver = new BarcodeScannerResolver();
+        mBarcodeScannerResolver.setScanSuccessListener(new BarcodeScannerResolver.OnScanSuccessListener() {
+            @Override
+            public void onScanSuccess(String barcode) {
+                searchView.setEt_inputValue(barcode);
+            }
+        });
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        removeScanListen();
+    }
+    /**
+     * 移除扫码监听
+     *
+     */
+    public void removeScanListen() {
+        mBarcodeScannerResolver.removeScanSuccessListener();
+        mBarcodeScannerResolver = null;
+    }
+    /**
+     * 扫码枪是输入设备，检测是否有外接输入设备.(这样判断其实并不严格)
+     *
+     * @return
+     */
+    private boolean hasScanGun() {
+        Configuration cfg = getResources().getConfiguration();
+        return cfg.keyboard != Configuration.KEYBOARD_NOKEYS;
+    }
+
+    /**
+     * Activity截获按键事件.发给 BarcodeScannerResolver
+     * dispatchKeyEvent() 和 onKeyDown() 方法均可
+     *
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (hasScanGun()) {
+            if (mBarcodeScannerResolver != null) {
+                mBarcodeScannerResolver.resolveKeyEvent(event);
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (mBarcodeScannerResolver != null) {
+            mBarcodeScannerResolver.resolveKeyEvent(event);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -4,9 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/main_header"
-        android:id="@+id/main_header"
-        />
+    <include layout="@layout/main_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -143,7 +141,5 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <include layout="@layout/main_root"
-        android:id="@+id/main_root"
-        />
+    <include layout="@layout/main_root" />
 </LinearLayout>

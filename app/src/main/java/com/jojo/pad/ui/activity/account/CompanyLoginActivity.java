@@ -1,20 +1,16 @@
 package com.jojo.pad.ui.activity.account;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jojo.pad.ComAssistantActivity;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
-import com.jojo.pad.util.MainActivity;
-import com.jojo.pad.uu.MainActivity2;
+import com.jojo.pad.util.UsbDemoActivity;
 import com.jojo.pad.widget.CircleImageView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 公司账号登陆
@@ -45,7 +41,13 @@ public class CompanyLoginActivity extends BaseAcitivty {
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toActivity(MainActivity2.class);
+                toActivity(UsbDemoActivity.class);
+            }
+        });
+        header.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return true;
             }
         });
     }
@@ -65,10 +67,4 @@ public class CompanyLoginActivity extends BaseAcitivty {
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

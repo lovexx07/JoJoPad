@@ -194,9 +194,7 @@
                         android:paddingRight="@dimen/dp_20"
                         android:paddingBottom="@dimen/dp_5"
                         android:paddingTop="@dimen/dp_5"
-                        android:background="@color/gray_c0"
-                        android:id="@+id/tv_no"
-                        />
+                        android:background="@color/gray_c0" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
