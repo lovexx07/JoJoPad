@@ -5,22 +5,22 @@ package com.jojo.pad.model.bean;
  */
 
 public class CompanyBean {
-    private String companyaccount;
-    private String password;
+    private String phone;
+    private String pwd;
 
-    public String getCompanyaccount() {
-        return companyaccount;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCompanyaccount(String companyaccount) {
-        this.companyaccount = companyaccount;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 }

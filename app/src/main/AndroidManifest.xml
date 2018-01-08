@@ -31,14 +31,14 @@
         <meta-data
             android:name="BUGLY_ENABLE_DEBUG"
             android:value="true" />
-        <activity android:name=".ui.activity.SplashActivity" />
-        <activity android:name=".ui.activity.account.CompanyLoginActivity">
+        <activity android:name=".ui.activity.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.account.CompanyLoginActivity"/>
         <activity android:name=".ui.activity.account.EmployeeLoginActivity" />
         <activity android:name=".ui.activity.account.CompanyRegisterActivity" />
         <activity android:name=".ui.activity.account.CompanyStyleActivity" />

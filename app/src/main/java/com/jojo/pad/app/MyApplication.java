@@ -3,6 +3,8 @@ package com.jojo.pad.app;
 import android.app.Application;
 
 import com.blankj.utilcode.util.Utils;
+import com.jojo.pad.model.http.APIService;
+import com.lzy.okgo.OkGo;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**

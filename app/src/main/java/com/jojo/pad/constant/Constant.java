@@ -1,5 +1,7 @@
 package com.jojo.pad.constant;
 
+import com.jojo.pad.BuildConfig;
+
 /**
  * Created by Administrator on 2017/12/27 0027.
  */
@@ -23,4 +25,5 @@ public interface Constant {
      * 跳转 返回参数
      */
     int INTENT_FAR_RESULT_A = 110;
+    boolean DEBUG = BuildConfig.DEBUG;
 }

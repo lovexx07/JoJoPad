@@ -4,14 +4,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.EncryptUtils;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
+import com.jojo.pad.model.bean.CompanyBean;
 import com.jojo.pad.print.PrintDemoActivity;
-import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
 import com.jojo.pad.util.UsbDemoActivity;
 import com.jojo.pad.widget.CircleImageView;
 
 import butterknife.BindView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * 公司账号登陆
@@ -63,7 +68,21 @@ public class CompanyLoginActivity extends BaseAcitivty {
                 String password = etPaw.getText().toString();
 
                 if ("jojo2904".equals(account) && "123456".equals(password)) {
-                    toActivity(NormalCompanyActivity.class);
+
+                    CompanyBean bean = new CompanyBean();
+                    bean.setPhone("12222222222");
+                    bean.setPwd(EncryptUtils.encryptMD5ToString("111111"));
+                    RetrofitManager.getInstance().server.slogin(bean).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
                 }
             }
         });

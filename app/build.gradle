@@ -55,6 +55,10 @@ dependencies {
     implementation 'com.blankj:utilcode:1.10.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.lzy.net:okgo:3.0.4'
+
+
+
     implementation 'com.android.support:design:27.0.2'
-    compile 'com.tencent.bugly:crashreport:latest.release'
 }
