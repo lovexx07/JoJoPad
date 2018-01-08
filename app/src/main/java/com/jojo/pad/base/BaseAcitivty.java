@@ -1,11 +1,13 @@
 package com.jojo.pad.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.lzy.okgo.OkGo;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -17,6 +19,7 @@ import butterknife.Unbinder;
 public abstract class BaseAcitivty extends AppCompatActivity{
     private Unbinder unbinder;
     protected Context mContext;
+    protected Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,7 @@ public abstract class BaseAcitivty extends AppCompatActivity{
             setContentView(getLayoutId());
         }
         mContext = this;
+        activity = this;
         unbinder = ButterKnife.bind(this);
         initView();
         setListener();
@@ -39,6 +43,7 @@ public abstract class BaseAcitivty extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        OkGo.getInstance().cancelTag(this);
         unbinder.unbind();
         unbinder = null;
     }

@@ -5,6 +5,7 @@ package com.jojo.pad.model.http;
  */
 
 public interface APIService {
-    String BaseApi = "http://183.62.12.10:9000/haoappAdmin/";
+    String BaseApi = "https://183.62.12.10:8443/haoappAdmin/";
+
 
 }

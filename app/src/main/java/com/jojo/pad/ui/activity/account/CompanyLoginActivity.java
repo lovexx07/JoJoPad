@@ -14,9 +14,6 @@ import com.jojo.pad.widget.CircleImageView;
 
 import butterknife.BindView;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * 公司账号登陆
@@ -72,17 +69,7 @@ public class CompanyLoginActivity extends BaseAcitivty {
                     CompanyBean bean = new CompanyBean();
                     bean.setPhone("12222222222");
                     bean.setPwd(EncryptUtils.encryptMD5ToString("111111"));
-                    RetrofitManager.getInstance().server.slogin(bean).enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                        }
-                    });
                 }
             }
         });
