@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jojo.pad.model;
+package com.jojo.pad.model.http.callback;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

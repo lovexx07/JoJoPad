@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="账号名称/邮箱/手机号"
-            android:text="jojo2904"
+            android:text="12222222222"
             android:id="@+id/et_account"
             android:textSize="@dimen/text_size_20" />
 
@@ -34,7 +34,8 @@
             android:gravity="center"
             android:id="@+id/et_paw"
             android:hint="输入密码"
-            android:text="123456"
+            android:text="111111"
+            android:inputType="textPassword"
             android:textSize="@dimen/text_size_20" />
 
         <TextView

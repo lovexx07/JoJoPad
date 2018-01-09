@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jojo.pad.model;
+package com.jojo.pad.model.http.callback;
 
 import com.google.gson.stream.JsonReader;
+import com.jojo.pad.model.http.LzyResponse;
+import com.jojo.pad.model.http.SimpleResponse;
+import com.jojo.pad.util.Convert;
 import com.lzy.okgo.convert.Converter;
 
 import org.json.JSONArray;

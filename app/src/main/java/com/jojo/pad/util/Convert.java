@@ -1,4 +1,4 @@
-package com.jojo.pad.model;
+package com.jojo.pad.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -29,6 +29,9 @@ public class Convert {
 
     public static <T> T fromJson(String json, Class<T> type) throws JsonIOException, JsonSyntaxException {
         return create().fromJson(json, type);
+    }
+    public static <T> T fromJObject(Object object, Class<T> type) throws JsonIOException, JsonSyntaxException {
+        return create().fromJson(toJson(object), type);
     }
 
     public static <T> T fromJson(String json, Type type) {

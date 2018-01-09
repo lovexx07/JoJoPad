@@ -26,17 +26,43 @@ import java.io.Serializable;
  * 修订历史：
  * ================================================
  */
-public class SimpleResponse implements Serializable {
+public class BaseResponse<T> implements Serializable {
 
-    private static final long serialVersionUID = -1477609349345966116L;
+    private static final long serialVersionUID = 5213230387175987834L;
 
-    public int code;
-    public String msg;
+    private int code;
+    private String msg;
+    private T data;
 
-    public LzyResponse toLzyResponse() {
-        LzyResponse lzyResponse = new LzyResponse();
-        lzyResponse.code = code;
-        lzyResponse.msg = msg;
-        return lzyResponse;
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseResponse{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                '}';
     }
 }

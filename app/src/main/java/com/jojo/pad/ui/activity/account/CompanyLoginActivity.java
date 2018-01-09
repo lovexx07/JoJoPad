@@ -5,15 +5,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.EncryptUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
-import com.jojo.pad.model.bean.CompanyBean;
+import com.jojo.pad.constant.HttpConstant;
+import com.jojo.pad.listener.ResponseListener;
+import com.jojo.pad.model.bean.result.MemberSignInBean;
+import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.print.PrintDemoActivity;
+import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
+import com.jojo.pad.util.AccountUtil;
+import com.jojo.pad.util.Convert;
 import com.jojo.pad.util.UsbDemoActivity;
 import com.jojo.pad.widget.CircleImageView;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
-import okhttp3.ResponseBody;
 
 /**
  * 公司账号登陆
@@ -63,16 +76,22 @@ public class CompanyLoginActivity extends BaseAcitivty {
             public void onClick(View view) {
                 String account = etAccount.getText().toString();
                 String password = etPaw.getText().toString();
+                Map<String, String> map = new HashMap<>();
+                map.put("phone", account);
+                map.put("pwd", EncryptUtils.encryptMD5ToString(password));
+                BaseHttp.postJson(HttpConstant.Api.signIn, map, activity, new ResponseListener() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        MemberSignInBean data = Convert.fromJObject(result,MemberSignInBean.class);
+                        AccountUtil.user_id = data.getUser_id();
+                        AccountUtil.operator = data.getOperator();
+                        AccountUtil.store_name = data.getStore_name();
+                        AccountUtil.store_id = data.getStore_id();
+                        toActivity(NormalCompanyActivity.class);
+                    }
+                });
 
-                if ("jojo2904".equals(account) && "123456".equals(password)) {
-
-                    CompanyBean bean = new CompanyBean();
-                    bean.setPhone("12222222222");
-                    bean.setPwd(EncryptUtils.encryptMD5ToString("111111"));
-
-                }
             }
         });
     }
-
 }

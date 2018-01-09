@@ -1,10 +1,11 @@
 package com.jojo.pad.model.bean.result;
 
+
 /**
  * Created by Administrator on 2018/1/8 0008.
  */
 
-public class ResTokenBean {
+public class ResTokenBean{
     private String token;
 
     public String getToken() {
@@ -25,11 +26,4 @@ public class ResTokenBean {
 
     private long expired_time;
 
-    @Override
-    public String toString() {
-        return "ResTokenBean{" +
-                "token='" + token + '\'' +
-                ", expired_time=" + expired_time +
-                '}';
-    }
 }

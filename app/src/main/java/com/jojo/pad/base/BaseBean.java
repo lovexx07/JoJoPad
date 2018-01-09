@@ -1,13 +1,16 @@
-package com.jojo.pad.model;
+package com.jojo.pad.base;
+
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2018/1/8 0008.
  */
 
-public class BaseBean<T> {
+public class BaseBean<T> implements Serializable {
+    private static final long serialVersionUID = 5213230387175987834L;
     private int code;
-    private T data;
     private String msg;
+    private T data;
 
     public T getData() {
         return data;
@@ -25,8 +28,6 @@ public class BaseBean<T> {
         this.msg = msg;
     }
 
-
-
     public int getCode() {
         return code;
     }
@@ -34,6 +35,7 @@ public class BaseBean<T> {
     public void setCode(int code) {
         this.code = code;
     }
+
 
 
 }

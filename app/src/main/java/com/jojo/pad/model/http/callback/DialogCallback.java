@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jojo.pad.model;
+package com.jojo.pad.model.http.callback;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.view.Window;
 
 import com.lzy.okgo.request.base.Request;
+
+import java.lang.reflect.Type;
 
 /**
  * ================================================
@@ -46,6 +48,7 @@ public abstract class DialogCallback<T> extends JsonCallback<T> {
         super();
         initDialog(activity);
     }
+
 
     @Override
     public void onStart(Request<T, ? extends Request> request) {

@@ -3,6 +3,7 @@ package com.jojo.pad.app;
 import android.app.Application;
 
 import com.blankj.utilcode.util.Utils;
+import com.jojo.pad.constant.HttpConstant;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
