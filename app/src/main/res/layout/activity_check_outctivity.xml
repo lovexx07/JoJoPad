@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.jojo.pad.widget.PadHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backcontent="收款" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/gray_4d"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray_5e"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        style="@style/layout_input_amount_style"
+                        android:layout_marginTop="@dimen/dp_1">
+
+                        <Button
+                            android:id="@+id/btn_1"
+                            style="@style/btn_input_amount_style"
+                            android:layout_marginRight="1dp"
+                            android:background="@drawable/number_press_select"
+                            android:text="1" />
+
+                        <Button
+                            android:id="@+id/btn_2"
+                            style="@style/btn_input_amount_style"
+                            android:layout_marginRight="1dp"
+                            android:background="@drawable/number_press_select"
+                            android:text="2" />
+
+                        <Button
+                            android:id="@+id/btn_3"
+                            style="@style/btn_input_amount_style"
+                            android:background="@drawable/number_press_select"
+                            android:text="3" />
+
+                        <Button
+                            android:id="@+id/btn_50"
+                            style="@style/btn_input_amount_style"
+                            android:background="@drawable/number_press_select"
+                            android:text="50" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/layout_input_amount_style">
+
+                        <Button
+                            android:id="@+id/btn_4"
+                            style="@style/btn_input_amount_style"
+                            android:layout_marginRight="1dp"
+                            android:background="@drawable/number_press_select"
+                            android:text="4" />
+
+                        <Button
+                            android:id="@+id/btn_5"
+                            style="@style/btn_input_amount_style"
+                            android:layout_marginRight="1dp"
+                            android:background="@drawable/number_press_select"
+                            android:text="5" />
+
+                        <Button
+                            android:id="@+id/btn_6"
+                            style="@style/btn_input_amount_style"
+                            android:background="@drawable/number_press_select"
+                            android:text="6" />
+
+                        <Button
+                            android:id="@+id/btn_100"
+                            style="@style/btn_input_amount_style"
+                            android:background="@drawable/number_press_select"
+                            android:text="100" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/layout_input_amount_style">
+
+                        <Button
+                            android:id="@+id/btn_7"
+                            style="@style/btn_input_amount_style"
+                            android:layout_marginRight="1dp"
+                            android:background="@drawable/number_press_select"
+                            android:text="7" />
+
+                        <Button
+                            android:id="@+id/btn_8"
+                            style="@style/btn_input_amount_style"
+                            android:layout_marginRight="1dp"
+                            android:background="@drawable/number_press_select"
+                            android:text="8" />
+
+                        <Button
+                            android:id="@+id/btn_9"
+                            style="@style/btn_input_amount_style"
+                            android:background="@drawable/number_press_select"
+                            android:text="9" />
+
+                        <Button
+                            android:id="@+id/btn_200"
+                            style="@style/btn_input_amount_style"
+                            android:background="@drawable/number_press_select"
+                            android:text="200" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/layout_input_amount_style">
+
+                        <Button
+                            android:id="@+id/btn_d_0"
+                            style="@style/btn_input_amount_style"
+                            android:layout_marginRight="1dp"
+                            android:background="@drawable/number_press_select"
+                            android:text="00" />
+
+                        <Button
+                            android:id="@+id/btn_0"
+                            style="@style/btn_input_amount_style"
+                            android:layout_marginRight="1dp"
+                            android:background="@drawable/number_press_select"
+                            android:text="0" />
+
+                        <Button
+                            android:id="@+id/btn_t"
+                            style="@style/btn_input_amount_style"
+                            android:background="@drawable/number_press_select"
+                            android:text="." />
+
+                        <Button
+                            android:id="@+id/btn_detail"
+                            style="@style/btn_input_amount_style"
+                            android:background="@drawable/number_press_select"
+                            android:text="备注" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <ImageButton
+                    style="@style/layout_input_amount_style"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:src="@mipmap/keyboard_backspace"
+                    android:background="@drawable/number_press_select"
+                    />
+                <Button
+                    android:id="@+id/tv_confirm"
+                    style="@style/layout_input_amount_style"
+                    android:layout_weight="3"
+                    android:background="@drawable/number_press_select"
+                    android:ems="1"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2" />
+    </LinearLayout>
+</LinearLayout>
