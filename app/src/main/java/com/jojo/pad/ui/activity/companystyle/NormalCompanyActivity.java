@@ -24,6 +24,7 @@ import com.jojo.pad.dialog.NoIdGoodsPriceDialog;
 import com.jojo.pad.listener.ViewClickListener;
 import com.jojo.pad.scaner.BarcodeScannerResolver;
 import com.jojo.pad.ui.activity.AddMemberActivity;
+import com.jojo.pad.ui.activity.CheckOutActivity;
 import com.jojo.pad.ui.activity.GoodsManageActivity;
 import com.jojo.pad.ui.activity.OrderApplicationActivity;
 import com.jojo.pad.ui.activity.LogisticActivity;
@@ -169,7 +170,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         ivMessage.setOnClickListener(this);
         ivHelp.setOnClickListener(this);
         llMember.setOnClickListener(this);
-
+        llEditCollect.setOnClickListener(this);
         searchView.setSearchListener(menuListener);
 
     }
@@ -200,6 +201,9 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                 break;
             case R.id.ll_member:
                 toActivityForResult(MemberActivity.class, null, Constant.INTENT_FAR_RESULT_A);
+                break;
+            case R.id.ll_edit_collect:
+                toActivity(CheckOutActivity.class);
                 break;
             default:
                 break;

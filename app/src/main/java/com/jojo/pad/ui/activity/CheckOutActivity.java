@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 
-public class CheckOutctivity extends BaseAcitivty {
+public class CheckOutActivity extends BaseAcitivty {
 
 
     @Override

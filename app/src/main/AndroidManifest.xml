@@ -89,7 +89,7 @@
         </service>
 
         <activity android:name=".print.PrintDemoActivity" />
-        <activity android:name=".ui.activity.CheckOutctivity"></activity>
+        <activity android:name=".ui.activity.CheckOutActivity"></activity>
     </application>
 
 </manifest>
