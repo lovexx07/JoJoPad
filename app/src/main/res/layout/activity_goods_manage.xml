@@ -10,8 +10,7 @@
         android:layout_height="wrap_content"
         app:backcontent="订货申请"
         android:id="@+id/header"
-        app:background="@color/main_heaer"
-        app:textcolor="@color/white" />
+    />
 
     <LinearLayout
         android:layout_width="match_parent"

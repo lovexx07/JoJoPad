@@ -21,6 +21,8 @@ public interface Constant {
     //时间选择
     int VIEW_CLICK_TYPE_DATE_PICKER = 4;
 
+    int VIEW_CLICK_TYPE_COMFIRM = 5;
+    int VIEW_CLICK_TYPE_NUMBER = 6;
     /**
      * 跳转 返回参数
      */

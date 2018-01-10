@@ -63,25 +63,24 @@ public class PadHeader extends LinearLayout implements View.OnClickListener {
             if (btnSubBackground != null) {
                 llRoot.setBackground(btnSubBackground);
             }
-            int textcolor = a.getColor(R.styleable.PadHeader_textcolor, Color.BLACK);
-
-            tvBack.setTextColor(textcolor);
-            tvDate.setTextColor(textcolor);
-            ivHelp.setTextColor(textcolor);
-
-            if (!isInEditMode()) {
-                if (textcolor == getResources().getColor(R.color.white)) {
-                    int pad = SizeUtils.dp2px(5);
-                    Drawable drback = getResources().getDrawable(R.mipmap.left_w);
-                    Drawable drhelp = getResources().getDrawable(R.mipmap.help_w);
-                    drback.setBounds(pad, pad, pad, pad);
-                    drhelp.setBounds(pad, pad, pad, pad);
-                    tvBack.setCompoundDrawablesWithIntrinsicBounds(drback, null, null, null);
-                    ivHelp.setCompoundDrawablesWithIntrinsicBounds(drhelp, null, null, null);
-                }
-            } else {
-                return;
-            }
+//
+//            tvBack.setTextColor(textcolor);
+//            tvDate.setTextColor(textcolor);
+//            ivHelp.setTextColor(textcolor);
+//
+//            if (!isInEditMode()) {
+//                if (textcolor == getResources().getColor(R.color.white)) {
+//                    int pad = SizeUtils.dp2px(5);
+//                    Drawable drback = getResources().getDrawable(R.mipmap.left_w);
+//                    Drawable drhelp = getResources().getDrawable(R.mipmap.help_w);
+//                    drback.setBounds(pad, pad, pad, pad);
+//                    drhelp.setBounds(pad, pad, pad, pad);
+//                    tvBack.setCompoundDrawablesWithIntrinsicBounds(drback, null, null, null);
+//                    ivHelp.setCompoundDrawablesWithIntrinsicBounds(drhelp, null, null, null);
+//                }
+//            } else {
+//                return;
+//            }
         }
     }
 

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="@dimen/dp_15"
-    android:background="@color/main_heaer"
+    android:background="@android:color/holo_blue_light"
     android:gravity="center_vertical"
     >
 

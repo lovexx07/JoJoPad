@@ -32,6 +32,28 @@
     </style>
 
 
+    <style name="tv_discount_item_style">
+        <item name="android:layout_width">@dimen/dp_120</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@drawable/discount_color_press_select</item>
+        <item name="android:paddingTop">@dimen/dp_10</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/discount_press_select</item>
+        <item name="android:layout_marginLeft">@dimen/dp_10</item>
+    </style>
+    <style name="ll_discount_item_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/dp_10</item>
+        <item name="android:paddingLeft">@dimen/dp_10</item>
+        <item name="android:paddingRight">@dimen/dp_10</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginRight">@dimen/dp_10</item>
+        <item name="android:layout_marginLeft">@dimen/dp_10</item>
+    </style>
 
 
     <declare-styleable name="NumberAddSubView">
@@ -61,7 +83,6 @@
             <enum name="invisible" value="1" />
         </attr>
         <attr name="background" format="reference"/>
-        <attr name="textcolor" format="reference"/>
     </declare-styleable>
     <declare-styleable name="EditTextItem">
         <attr name="edittitle" format="string"/>

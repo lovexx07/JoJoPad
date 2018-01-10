@@ -6,16 +6,18 @@
     android:orientation="horizontal"
     android:paddingRight="@dimen/dp_10"
     android:id="@+id/ll_root"
+    android:background="@android:color/holo_blue_light"
     >
 
     <TextView
         android:id="@+id/tv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@mipmap/left"
+        android:drawableLeft="@mipmap/left_w"
         android:drawablePadding="@dimen/dp_5"
         android:padding="@dimen/dp_5"
         android:text="返回"
+        android:textColor="@color/white"
         android:textSize="@dimen/sp_14" />
 
     <Space
@@ -31,7 +33,7 @@
         android:drawablePadding="@dimen/dp_5"
         android:gravity="center"
         android:text="日结"
-        android:textColor="@android:color/holo_blue_light"
+        android:textColor="@color/white"
         android:textSize="@dimen/text_size_18" />
 
     <TextView
@@ -39,9 +41,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_20"
-        android:drawableLeft="@mipmap/help"
+        android:drawableLeft="@mipmap/help_w"
         android:drawablePadding="@dimen/dp_5"
         android:gravity="center"
         android:text="帮助"
+        android:textColor="@color/white"
         android:textSize="@dimen/text_size_18" />
 </LinearLayout>
