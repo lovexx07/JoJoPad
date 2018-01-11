@@ -2,15 +2,14 @@ package com.jojo.pad.ui.activity.companystyle;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -21,20 +20,26 @@ import com.jojo.pad.constant.MenuItem;
 import com.jojo.pad.dialog.GoodsSearchDialog;
 import com.jojo.pad.dialog.MainMenuDialog;
 import com.jojo.pad.dialog.NoIdGoodsPriceDialog;
+import com.jojo.pad.evenbean.MemberEvenBean;
 import com.jojo.pad.listener.ViewClickListener;
 import com.jojo.pad.scaner.BarcodeScannerResolver;
-import com.jojo.pad.ui.activity.AddMemberActivity;
 import com.jojo.pad.ui.activity.CheckOutActivity;
 import com.jojo.pad.ui.activity.GoodsManageActivity;
-import com.jojo.pad.ui.activity.OrderApplicationActivity;
 import com.jojo.pad.ui.activity.LogisticActivity;
-import com.jojo.pad.ui.activity.MemberActivity;
 import com.jojo.pad.ui.activity.MessageCenterActivity;
 import com.jojo.pad.ui.activity.NewGoodsActivity;
+import com.jojo.pad.ui.activity.OrderApplicationActivity;
 import com.jojo.pad.ui.activity.SaleDocumesActivity;
 import com.jojo.pad.ui.activity.SystemSetupActivity;
 import com.jojo.pad.ui.activity.TransferActivity;
+import com.jojo.pad.ui.activity.member.MemberAddActivity;
+import com.jojo.pad.ui.activity.member.MemberDetailActivity;
+import com.jojo.pad.ui.activity.member.MemberSearchActivity;
 import com.jojo.pad.widget.SearchView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 
@@ -73,10 +78,20 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
     SearchView searchView;
     @BindView(R.id.ll_member)
     LinearLayout llMember;
+    @BindView(R.id.tv_chose_memeber)
+    TextView tvChoseMemeber;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_account)
+    TextView tvAccount;
+    @BindView(R.id.ll_member_result)
+    LinearLayout llMemberResult;
 
     private ViewClickListener menuListener;
     //扫码枪监听
     private BarcodeScannerResolver mBarcodeScannerResolver;
+
+    private String cid, cname, crecharge;//会员id，会员名字，会员帐余额
 
     @Override
     public int getLayoutId() {
@@ -122,10 +137,10 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                 showToast("打开钱箱命令");
                 break;
             case MenuItem.returnGoods:
-                toActivity(GoodsManageActivity.class,"type",MenuItem.returnGoods);
+                toActivity(GoodsManageActivity.class, "type", MenuItem.returnGoods);
                 break;
             case MenuItem.addMembers:
-                toActivity(AddMemberActivity.class);
+                toActivity(MemberAddActivity.class);
                 break;
             case MenuItem.salesDocumes:
                 toActivity(SaleDocumesActivity.class);
@@ -134,13 +149,13 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                 toActivity(NewGoodsActivity.class);
                 break;
             case MenuItem.inventory:
-                toActivity(GoodsManageActivity.class,"type",MenuItem.inventory);
+                toActivity(GoodsManageActivity.class, "type", MenuItem.inventory);
                 break;
             case MenuItem.orderApplication:
                 toActivity(OrderApplicationActivity.class);
                 break;
             case MenuItem.condiments:
-                toActivity(GoodsManageActivity.class,"type",MenuItem.condiments);
+                toActivity(GoodsManageActivity.class, "type", MenuItem.condiments);
                 break;
             case MenuItem.logisticNotification:
                 toActivity(LogisticActivity.class);
@@ -152,7 +167,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                 toActivity(MessageCenterActivity.class);
                 break;
             case MenuItem.reportLoss:
-                toActivity(GoodsManageActivity.class,"type",MenuItem.reportLoss);
+                toActivity(GoodsManageActivity.class, "type", MenuItem.reportLoss);
                 break;
             case MenuItem.systemSetup:
                 toActivity(SystemSetupActivity.class);
@@ -164,6 +179,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
 
     @Override
     public void setListener() {
+        EventBus.getDefault().register(this);
         startScanListenr();
         mainSet.setOnClickListener(this);
         ivInput.setOnClickListener(this);
@@ -200,7 +216,17 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                 ToastUtils.showShort(R.string.help);
                 break;
             case R.id.ll_member:
-                toActivityForResult(MemberActivity.class, null, Constant.INTENT_FAR_RESULT_A);
+                if (llMemberResult.getVisibility() == View.VISIBLE){
+                    Bundle intent = new Bundle();
+                    intent.putString("cid", cid);
+                    intent.putString("cname", cname);
+                    intent.putString("crecharge",crecharge);
+                    intent.putString("type","detail");
+                    toActivity(MemberDetailActivity.class, intent);
+                }else {
+                    toActivity(MemberSearchActivity.class);
+                }
+
                 break;
             case R.id.ll_edit_collect:
                 toActivity(CheckOutActivity.class);
@@ -210,14 +236,36 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         }
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(Object event) {
+        if (event instanceof MemberEvenBean){
+            MemberEvenBean memberEvenBean = (MemberEvenBean) event;
+            if (memberEvenBean.isCancle()){
+                crecharge = "";
+                cname = "";
+                cid = "";
+
+                tvChoseMemeber.setVisibility(View.VISIBLE);
+                llMemberResult.setVisibility(View.GONE);
+            }else {
+                crecharge = memberEvenBean.getCrecharge();
+                cname = memberEvenBean.getCname();
+                cid = memberEvenBean.getCid();
+
+                tvChoseMemeber.setVisibility(View.GONE);
+                llMemberResult.setVisibility(View.VISIBLE);
+            }
+            tvName.setText("姓名："+cname);
+            tvAccount.setText("余额：￥"+crecharge);
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case Constant.INTENT_FAR_RESULT_A:
 
-                    break;
                 default:
                     LogUtils.e("onActivityResult");
             }
@@ -227,7 +275,6 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
 
     /**
      * 开始扫码监听按钮
-     *
      */
     public void startScanListenr() {
         mBarcodeScannerResolver = new BarcodeScannerResolver();
@@ -238,19 +285,22 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
             }
         });
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         removeScanListen();
     }
+
     /**
      * 移除扫码监听
-     *
      */
     public void removeScanListen() {
         mBarcodeScannerResolver.removeScanSuccessListener();
         mBarcodeScannerResolver = null;
     }
+
     /**
      * 扫码枪是输入设备，检测是否有外接输入设备.(这样判断其实并不严格)
      *
@@ -285,4 +335,5 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

@@ -88,7 +88,7 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
 
     @Override
     public void setListener() {
-        checkout.setViewClickListener(new ViewClickListener() {
+        checkout.setSearchListener(new ViewClickListener() {
             @Override
             public void clickListener(String msg, int type) {
                 if (type == Constant.VIEW_CLICK_TYPE_NUMBER) {

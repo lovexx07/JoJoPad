@@ -4,7 +4,7 @@ package com.jojo.pad.model.bean.result;
  * Created by ruifeng on 2018/1/9.
  */
 
-public class MemberSignInBean {
+public class UserSignInBean {
     private String user_id;
     private String operator;
     private String store_id;

@@ -49,7 +49,33 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:text="点击选择会员"
+                android:id="@+id/tv_chose_memeber"
                 android:textSize="@dimen/text_size_20" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:gravity="center_vertical"
+                android:id="@+id/ll_member_result"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名：马云"
+                    android:id="@+id/tv_name"
+                    android:textSize="@dimen/sp_14"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="余额：2"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="@dimen/sp_14"
+                    android:id="@+id/tv_account"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
         <View

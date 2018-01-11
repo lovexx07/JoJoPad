@@ -92,9 +92,20 @@
             <enum name="visible" value="0"/>
             <enum name="invisible" value="1" />
         </attr>
+        <attr name="editable" format="boolean"/>
         <attr name="showmore" format="enum">
             <enum name="visible" value="0"/>
             <enum name="invisible" value="1" />
+        </attr>
+        <attr name="editshowdate" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="CheckOutRoot">
+        <attr name="showquic" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="gone" value="8" />
         </attr>
     </declare-styleable>
     <style name="AppTheme.NoActionBar">

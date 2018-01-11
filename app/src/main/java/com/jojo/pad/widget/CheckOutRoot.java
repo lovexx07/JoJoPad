@@ -1,6 +1,7 @@
 package com.jojo.pad.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -74,9 +75,17 @@ public class CheckOutRoot extends LinearLayout implements View.OnClickListener {
         super(context, attrs, defStyleAttr);
         this.context = context;
         initView();
+        if (attrs != null) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CheckOutRoot, defStyleAttr, 0);
+            int showquic = a.getInt(R.styleable.CheckOutRoot_showquic, VISIBLE);
+            btn50.setVisibility(showquic);
+            btn100.setVisibility(showquic);
+            btn200.setVisibility(showquic);
+            btnDetail.setVisibility(showquic);
+        }
     }
 
-    public void setViewClickListener(ViewClickListener listener){
+    public void setSearchListener(ViewClickListener listener){
         this.listener = listener;
     }
 
@@ -189,7 +198,7 @@ public class CheckOutRoot extends LinearLayout implements View.OnClickListener {
             case R.id.btn_detail:
 
                 break;
-            case R.id.bt_confirm:
+            case R.id.tv_confirm:
                 setConfirm();
                 break;
             default:
@@ -202,7 +211,7 @@ public class CheckOutRoot extends LinearLayout implements View.OnClickListener {
     }
     private void setConfirm() {
         if (listener != null){
-            listener.clickListener(stringBuilder.toString(), Constant.VIEW_CLICK_TYPE_NUMBER);
+            listener.clickListener(stringBuilder.toString(), Constant.VIEW_CLICK_TYPE_COMFIRM);
         }
     }
 }

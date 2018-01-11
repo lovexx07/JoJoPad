@@ -1,5 +1,6 @@
 package com.jojo.pad.widget;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
@@ -7,11 +8,13 @@ import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jojo.pad.R;
+import com.jojo.pad.dialog.DatePickDialog;
+import com.jojo.pad.listener.ViewClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,10 +38,14 @@ public class EditTextItem extends LinearLayout {
     SwitchCompat switchState;
     @BindView(R.id.fl_check)
     LinearLayout flCheck;
+    @BindView(R.id.tv_date)
+    ImageView tvDate;
     private Context context;
 
 
     private OnClickListener moreListener;
+    private DatePickDialog datePickDialog;
+    private ViewClickListener listener;
 
     public void setMoreListener(OnClickListener moreListener) {
         this.moreListener = moreListener;
@@ -64,6 +71,15 @@ public class EditTextItem extends LinearLayout {
             String morecontent = a.getString(R.styleable.EditTextItem_morecontent);
             int showcheck = a.getInt(R.styleable.EditTextItem_showcheck, GONE);
             int showomore = a.getInt(R.styleable.EditTextItem_showmore, GONE);
+            int showodate = a.getInt(R.styleable.EditTextItem_editshowdate, GONE);
+            boolean editable = a.getBoolean(R.styleable.EditTextItem_editable,true);
+
+            if (!editable) {
+                editInput.setCursorVisible(false);
+                editInput.setFocusable(false);
+                editInput.setFocusableInTouchMode(false);
+            }
+
             tvTitle.setText(title);
             tvMore.setText(morecontent);
             tvCheckname.setText(checkcontent);
@@ -76,11 +92,15 @@ public class EditTextItem extends LinearLayout {
             }
 
             tvMore.setVisibility(showomore);
+            tvDate.setVisibility(showodate);
         }
     }
 
     public String getEditTextValue() {
         return editInput.getText().toString();
+    }
+    public void setEditTextValue(String value) {
+        editInput.setText(value);
     }
 
     public boolean getCheckBoxValue() {
@@ -95,5 +115,20 @@ public class EditTextItem extends LinearLayout {
         if (moreListener != null) {
             tvMore.setOnClickListener(moreListener);
         }
+        tvDate.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickDialog = new DatePickDialog.Builder(context,false).setListener(listener).setTitle("设置生日").create();
+                datePickDialog.setCanceledOnTouchOutside(true);
+                datePickDialog.show();
+            }
+        });
+
+        listener = new ViewClickListener() {
+            @Override
+            public void clickListener(String msg, int type) {
+                editInput.setText(msg);
+            }
+        };
     }
 }

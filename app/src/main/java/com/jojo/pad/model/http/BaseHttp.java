@@ -5,23 +5,18 @@ import android.app.Activity;
 import com.blankj.utilcode.util.EncodeUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.app.MyApplication;
 import com.jojo.pad.base.BaseBean;
 import com.jojo.pad.base.RootBean;
 import com.jojo.pad.constant.HttpConstant;
 import com.jojo.pad.listener.ResponseListener;
-import com.jojo.pad.model.BaseResponse;
-import com.jojo.pad.model.bean.result.MemberSignInBean;
 import com.jojo.pad.model.bean.result.ResTokenBean;
-import com.jojo.pad.model.http.callback.DialogCallback;
 import com.jojo.pad.model.http.callback.JsonCallback;
 import com.jojo.pad.model.http.callback.StringDialogCallback;
 import com.jojo.pad.util.Convert;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 
 
@@ -69,6 +64,7 @@ public class BaseHttp {
 
                     @Override
                     public void onSuccess(Response<String> response) {
+                        LogUtils.e("postJson：" + response.body());
                         RootBean data = Convert.fromJson(response.body(), RootBean.class);
                         int code = data.getCode();
                         String msg = data.getMsg();
@@ -81,7 +77,33 @@ public class BaseHttp {
                 });
 
     }
+    public static void getJson(final String url, final Map<String, String> map, final Activity activity, final ResponseListener listener) {
+        OkGo.<String>get(HttpConstant.BaseApi + url)
+                .tag(activity)
+                .headers("token", HttpConstant.TOKEN)
+                .params(map)
+                .execute(new StringDialogCallback(activity) {
+                    @Override
+                    public void onError(Response<String> response) {
+                        listener.onError("网络异常!请稍后重试");
+                        LogUtils.e("postJson：" + response.toString());
+                    }
 
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtils.e("postJson：" + response.body().toString());
+                        RootBean data = Convert.fromJson(response.body(), RootBean.class);
+                        int code = data.getCode();
+                        String msg = data.getMsg();
+                        if (code == 0) {
+                            listener.onSuccess(data.getData());
+                        } else {
+                            handerError(code, msg, activity, listener);
+                        }
+                    }
+                });
+
+    }
     private static void handerError(int code, String msg, Activity activity, ResponseListener listener) {
         String result = "网络异常请稍后重试";
         switch (code) {

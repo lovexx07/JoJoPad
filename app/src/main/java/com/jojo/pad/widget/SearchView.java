@@ -76,7 +76,12 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
             listener.clickListener(input, Constant.VIEW_CLICK_TYPE_SEARCH);
         }
     }
-
+    public void setSearchString(String str){
+        et_input.setText(str);
+    }
+    public String getSearchString(){
+        return et_input.getText().toString();
+    }
 
     @Override
     public void onClick(View view) {

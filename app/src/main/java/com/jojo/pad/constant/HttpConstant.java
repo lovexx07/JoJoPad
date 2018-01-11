@@ -14,7 +14,12 @@ public class HttpConstant {
 
 
     public interface Api{
-        String token ="Public/getToken";
-        String signIn ="Member/signIn";
+        String token ="Public/getToken";//获取token值
+        String signIn ="Member/signIn";//登录
+        String searchMember ="Customer/getList";//查找会员列表
+        String addMember ="Customer/add";//增加会员
+        String getMemberNember ="Customer/getMaxNumber";//获取会员卡号
+        String memberGetInfo ="Customer/getInfo";//获取会员详细信息
+        String memberGetRecharge ="Customer/getRecharge";//获取会员储值信息
     }
 }

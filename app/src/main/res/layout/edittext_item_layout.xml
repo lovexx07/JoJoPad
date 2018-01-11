@@ -72,6 +72,15 @@
             android:text="生成条码"
             android:textColor="@color/white"
             android:visibility="gone" />
+        <ImageView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:src="@mipmap/calandar"
+            android:visibility="gone"
+            />
     </LinearLayout>
 
 </LinearLayout>

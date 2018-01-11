@@ -46,9 +46,8 @@
         <activity android:name=".ui.activity.account.CompanyStyleActivity" />
         <activity android:name=".ui.activity.companystyle.NormalCompanyActivity" />
         <activity android:name=".ui.activity.companystyle.SpecialCompanyActivity" />
-        <activity android:name=".ui.activity.MemberActivity" />
+        <activity android:name=".ui.activity.member.MemberSearchActivity" />
         <activity android:name=".ui.activity.TransferActivity" />
-        <activity android:name=".ui.activity.AddMemberActivity" />
         <activity android:name=".ui.activity.SaleDocumesActivity" />
         <activity android:name=".ui.activity.NewGoodsActivity" />
         <activity android:name=".ui.activity.OrderApplicationActivity" />
@@ -89,7 +88,9 @@
         </service>
 
         <activity android:name=".print.PrintDemoActivity" />
-        <activity android:name=".ui.activity.CheckOutActivity"/>
+        <activity android:name=".ui.activity.CheckOutActivity" />
+        <activity android:name=".ui.activity.member.MemberAddActivity" />
+        <activity android:name=".ui.activity.member.MemberDetailActivity"></activity>
     </application>
 
 </manifest>

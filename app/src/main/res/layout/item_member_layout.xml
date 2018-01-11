@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        >
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/person"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="马云"
+            android:textSize="@dimen/sp_14"
+            android:singleLine="true"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_cardnumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp_14"
+            android:singleLine="true"
+            android:drawableLeft="@mipmap/card"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="1001"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp_14"
+            android:singleLine="true"
+            android:drawableLeft="@mipmap/phone"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="1811111111"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_cash"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:textSize="@dimen/sp_14"
+            android:singleLine="true"
+            android:drawableLeft="@mipmap/dollar"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="0"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+    <include layout="@layout/line"/>
+</LinearLayout>

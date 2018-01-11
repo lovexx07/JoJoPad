@@ -5,14 +5,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.EncryptUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.constant.HttpConstant;
 import com.jojo.pad.listener.ResponseListener;
-import com.jojo.pad.model.bean.result.MemberSignInBean;
+import com.jojo.pad.model.bean.result.UserSignInBean;
 import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.print.PrintDemoActivity;
 import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
@@ -20,8 +17,6 @@ import com.jojo.pad.util.AccountUtil;
 import com.jojo.pad.util.Convert;
 import com.jojo.pad.util.UsbDemoActivity;
 import com.jojo.pad.widget.CircleImageView;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +77,7 @@ public class CompanyLoginActivity extends BaseAcitivty {
                 BaseHttp.postJson(HttpConstant.Api.signIn, map, activity, new ResponseListener() {
                     @Override
                     public void onSuccess(Object result) {
-                        MemberSignInBean data = Convert.fromJObject(result,MemberSignInBean.class);
+                        UserSignInBean data = Convert.fromJObject(result,UserSignInBean.class);
                         AccountUtil.user_id = data.getUser_id();
                         AccountUtil.operator = data.getOperator();
                         AccountUtil.store_name = data.getStore_name();

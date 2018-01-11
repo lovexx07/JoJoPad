@@ -62,13 +62,18 @@ public class DatePickDialog extends Dialog {
         private ViewClickListener listener;
         private DatePickDialog dialog;
 
-        private boolean showtimepicker = false;
+        private boolean showtimepicker = true;
         private Calendar cl;
         private int myear, mmonth, mday, mhour, mminute;
 
 
         public Builder(Context context) {
             this.context = context;
+        }
+
+        public Builder(Context context,boolean showtimepicker) {
+            this.context = context;
+            this.showtimepicker = showtimepicker;
         }
 
         public Builder setListener(ViewClickListener listener) {
@@ -129,13 +134,15 @@ public class DatePickDialog extends Dialog {
             tvConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (showtimepicker) {
-                        listener.clickListener(myear + "-" + mmonth + "-" + mday + " " + mhour + ":" + mminute, Constant.VIEW_CLICK_TYPE_DATE_PICKER);
+                    if (!showtimepicker) {
+                        if (listener!= null) {
+                            listener.clickListener(myear + "-" + mmonth + "-" + mday + " " + mhour + ":" + mminute, Constant.VIEW_CLICK_TYPE_DATE_PICKER);
+                        }
                         dialog.dismiss();
                     } else {
                         datepicker.setVisibility(View.GONE);
                         timepicker.setVisibility(View.VISIBLE);
-                        showtimepicker = true;
+                        showtimepicker = false;
                         Animation animation = new ScaleAnimation(0.5f, 1f, 0.5f, 1f,
                                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                         //动画时间

@@ -10,6 +10,7 @@
     <dimen name="space_normal">15dp</dimen>
 
     <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
     <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_10">10dp</dimen>
