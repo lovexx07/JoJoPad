@@ -83,6 +83,7 @@ public class CompanyLoginActivity extends BaseAcitivty {
                         AccountUtil.store_name = data.getStore_name();
                         AccountUtil.store_id = data.getStore_id();
                         toActivity(NormalCompanyActivity.class);
+                        finish();
                     }
                 });
 

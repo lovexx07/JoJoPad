@@ -34,6 +34,7 @@ public class SplashActivity extends BaseAcitivty {
             public void run() {
 
                     startActivity(new Intent(SplashActivity.this, CompanyLoginActivity.class));
+                    finish();
             }
         }, 300);
 

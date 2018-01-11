@@ -21,5 +21,7 @@ public class HttpConstant {
         String getMemberNember ="Customer/getMaxNumber";//获取会员卡号
         String memberGetInfo ="Customer/getInfo";//获取会员详细信息
         String memberGetRecharge ="Customer/getRecharge";//获取会员储值信息
+
+        String rechargeAdd ="Recharge/add";//会员充值
     }
 }

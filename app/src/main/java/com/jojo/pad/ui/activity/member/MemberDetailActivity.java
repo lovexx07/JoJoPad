@@ -1,5 +1,7 @@
 package com.jojo.pad.ui.activity.member;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -7,6 +9,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.TimeUtils;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
+import com.jojo.pad.constant.Constant;
 import com.jojo.pad.constant.HttpConstant;
 import com.jojo.pad.evenbean.MemberEvenBean;
 import com.jojo.pad.listener.ResponseListener;
@@ -136,7 +139,9 @@ public class MemberDetailActivity extends BaseAcitivty implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_cancle:
-                finish();
+                Bundle bundle = new Bundle();
+                bundle.putString("cid",cid);
+                toActivityForResult(MemberRechargeActivity.class,bundle, Constant.INTENT_FAR_RESULT_A);
                 break;
             case R.id.tv_confirm:
                 if (canchose){
@@ -149,6 +154,14 @@ public class MemberDetailActivity extends BaseAcitivty implements View.OnClickLi
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constant.INTENT_FAR_RESULT_A && resultCode  == RESULT_OK){
+            initData();
         }
     }
 }

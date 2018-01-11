@@ -90,7 +90,9 @@
         <activity android:name=".print.PrintDemoActivity" />
         <activity android:name=".ui.activity.CheckOutActivity" />
         <activity android:name=".ui.activity.member.MemberAddActivity" />
-        <activity android:name=".ui.activity.member.MemberDetailActivity"></activity>
+        <activity android:name=".ui.activity.member.MemberDetailActivity" />
+        <activity android:name=".ui.activity.member.MemberRechargeActivity"/>
+
     </application>
 
 </manifest>
