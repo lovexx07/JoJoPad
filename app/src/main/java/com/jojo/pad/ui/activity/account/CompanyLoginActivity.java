@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.EncryptUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.constant.HttpConstant;
@@ -84,6 +85,10 @@ public class CompanyLoginActivity extends BaseAcitivty {
                         AccountUtil.store_id = data.getStore_id();
                         toActivity(NormalCompanyActivity.class);
                         finish();
+                    }
+                    @Override
+                    public void onError(String result) {
+                        ToastUtils.showShort(result);
                     }
                 });
 

@@ -11,12 +11,10 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dp_8"
-        android:paddingBottom="@dimen/dp_8"
-        android:background="@drawable/bg_btn_style_white"
+        android:background="@drawable/bg_btn_style_gren"
         android:text="—"
         android:gravity="center"
-        android:textColor="#000000"
+        android:textColor="@color/gray_80"
         android:textSize="20sp" />
 
     <TextView
@@ -25,9 +23,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="@dimen/dp_10"
-        android:paddingBottom="@dimen/dp_10"
-        android:background="@android:color/holo_blue_light"
+        android:textColor="@android:color/holo_red_light"
         android:text="1" />
 
     <TextView
@@ -35,12 +31,10 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn_style_white"
-        android:paddingTop="@dimen/dp_8"
-        android:paddingBottom="@dimen/dp_8"
+        android:background="@drawable/bg_btn_style_gren"
         android:gravity="center"
         android:text="+"
-        android:textColor="#000000"
+        android:textColor="@color/gray_80"
         android:textSize="20sp" />
 
 </LinearLayout>

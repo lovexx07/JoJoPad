@@ -124,6 +124,10 @@ public class MemberSearchActivity extends BaseAcitivty implements View.OnClickLi
                 MemberListBean memberListBean = Convert.fromJObject(data, MemberListBean.class);
                 memberAdapter.addData(memberListBean.getCustomer_list());
             }
+            @Override
+            public void onError(String result) {
+                ToastUtils.showShort(result);
+            }
         });
     }
 }

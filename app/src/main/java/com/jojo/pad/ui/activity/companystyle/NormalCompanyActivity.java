@@ -3,6 +3,7 @@ package com.jojo.pad.ui.activity.companystyle;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -14,14 +15,23 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.R;
+import com.jojo.pad.adapter.NormalCompanyAdapter;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.constant.Constant;
+import com.jojo.pad.constant.HttpConstant;
 import com.jojo.pad.constant.MenuItem;
 import com.jojo.pad.dialog.GoodsSearchDialog;
 import com.jojo.pad.dialog.MainMenuDialog;
+import com.jojo.pad.dialog.MessageDialog;
 import com.jojo.pad.dialog.NoIdGoodsPriceDialog;
 import com.jojo.pad.evenbean.MemberEvenBean;
+import com.jojo.pad.evenbean.OrderListRefreshEvent;
+import com.jojo.pad.listener.ObjectClickListener;
+import com.jojo.pad.listener.ResponseListener;
 import com.jojo.pad.listener.ViewClickListener;
+import com.jojo.pad.model.bean.OrderBean;
+import com.jojo.pad.model.bean.result.GoodCodeListBean;
+import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.scaner.BarcodeScannerResolver;
 import com.jojo.pad.ui.activity.CheckOutActivity;
 import com.jojo.pad.ui.activity.GoodsManageActivity;
@@ -35,11 +45,18 @@ import com.jojo.pad.ui.activity.TransferActivity;
 import com.jojo.pad.ui.activity.member.MemberAddActivity;
 import com.jojo.pad.ui.activity.member.MemberDetailActivity;
 import com.jojo.pad.ui.activity.member.MemberSearchActivity;
+import com.jojo.pad.util.Convert;
 import com.jojo.pad.widget.SearchView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -88,10 +105,13 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
     LinearLayout llMemberResult;
 
     private ViewClickListener menuListener;
+    private ObjectClickListener<GoodCodeListBean.GoodCodeBean> objectClickListener;
     //扫码枪监听
     private BarcodeScannerResolver mBarcodeScannerResolver;
 
     private String cid, cname, crecharge;//会员id，会员名字，会员帐余额
+    private List<OrderBean> datas;
+    private NormalCompanyAdapter normalCompanyAdapter;
 
     @Override
     public int getLayoutId() {
@@ -100,30 +120,47 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
 
     @Override
     public void initView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerview.setLayoutManager(linearLayoutManager);
+        datas = new ArrayList<>();
+        normalCompanyAdapter = new NormalCompanyAdapter(datas);
+        recyclerview.setAdapter(normalCompanyAdapter);
+
         menuListener = new ViewClickListener() {
             @Override
             public void clickListener(String msg, int type) {
                 switch (type) {
-                    case Constant.VIEW_CLICK_TYPE_PRICE:
-                        LogUtils.e(msg);
+                    case Constant.VIEW_CLICK_TYPE_NOID:
+                        OrderBean bean = new OrderBean("无码商品", msg, "", "");
+                        normalCompanyAdapter.addData(bean);
+                        refreshSum();
                         break;
                     case Constant.VIEW_CLICK_TYPE_MENU:
                         checkMenu(msg);
                         break;
                     case Constant.VIEW_CLICK_TYPE_SEARCH:
                         if (!TextUtils.isEmpty(msg)) {
-                            GoodsSearchDialog dialog = new GoodsSearchDialog.Builder(mContext).search(msg).setListener(menuListener).create();
-                            dialog.setCanceledOnTouchOutside(true);
-                            dialog.show();
+                            searchGoodById(msg);
                         }
                         break;
-                    case Constant.VIEW_CLICK_TYPE_SEARCH_DIALOG:
-                        LogUtils.e("ID : " + msg);
+                    case Constant.VIEW_CLICK_TYPE_DIALOG_CONFIRM:
+                        datas.clear();
+                        normalCompanyAdapter.notifyDataSetChanged();
+                        refreshSum();
                         break;
                     default:
                         LogUtils.e("ViewClickListener");
                         break;
                 }
+            }
+        };
+        objectClickListener = new ObjectClickListener<GoodCodeListBean.GoodCodeBean>() {
+            @Override
+            public void clickListener(GoodCodeListBean.GoodCodeBean goodCodeBean, int type) {
+                OrderBean bean = new OrderBean(goodCodeBean.getGoods_name(), goodCodeBean.getGoods_price(), goodCodeBean.getBarcode(), goodCodeBean.getGid());
+                normalCompanyAdapter.addData(bean);
+                refreshSum();
             }
         };
     }
@@ -187,6 +224,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         ivHelp.setOnClickListener(this);
         llMember.setOnClickListener(this);
         llEditCollect.setOnClickListener(this);
+        tvClear.setOnClickListener(this);
         searchView.setSearchListener(menuListener);
 
     }
@@ -195,6 +233,8 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
     public void initData() {
 
     }
+
+
 
     @Override
     public void onClick(View view) {
@@ -229,12 +269,22 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
 
                 break;
             case R.id.ll_edit_collect:
-                toActivity(CheckOutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("orders", (Serializable) datas);
+                if (!TextUtils.isEmpty(cid)) {
+                    bundle.putString("cid",cid);
+                }
+                toActivity(CheckOutActivity.class,bundle);
+                break;
+            case R.id.tv_clear:
+                showClearDialog();
                 break;
             default:
                 break;
         }
     }
+
+
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -258,6 +308,13 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
             }
             tvName.setText("姓名："+cname);
             tvAccount.setText("余额：￥"+crecharge);
+        }else if (event instanceof  OrderBean){
+            OrderBean orderBean = (OrderBean) event;
+            datas.remove(orderBean);
+            normalCompanyAdapter.notifyDataSetChanged();
+            refreshSum();
+        } else if (event instanceof OrderListRefreshEvent){
+            refreshSum();
         }
     }
     @Override
@@ -271,7 +328,57 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
             }
         }
     }
+    private void refreshSum(){
+        int count =0;
+        double sum=0;
+        for (OrderBean orderBean :datas){
+            count += orderBean.getCount();
+            sum += Double.parseDouble(orderBean.getGoods_price()) * orderBean.getCount();
+        }
+        tvCount.setText(count+"");
+        tvSum.setText(sum+"");
+        tvCollect.setText("￥"+sum);
 
+        if (count >0){
+            tvClear.setVisibility(View.VISIBLE);
+        }else {
+            tvClear.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void searchGoodById(String code) {
+        Map<String, String> map = new HashMap<>();
+        map.put("code", code);
+        BaseHttp.getJson(HttpConstant.Api.goodSearchByCode, map, activity, new ResponseListener() {
+            @Override
+            public void onSuccess(Object result) {
+                GoodCodeListBean goodCodeListBean = Convert.fromJObject(result,GoodCodeListBean.class);
+                if (goodCodeListBean.getData() != null) {
+                    if (goodCodeListBean.getData().size() == 1) {
+                        GoodCodeListBean.GoodCodeBean goodCodeBean = goodCodeListBean.getData().get(0);
+                        OrderBean bean = new OrderBean(goodCodeBean.getGoods_name(), goodCodeBean.getGoods_price(), goodCodeBean.getBarcode(), goodCodeBean.getGid());
+                        normalCompanyAdapter.addData(bean);
+                    } else {
+                        GoodsSearchDialog dialog = new GoodsSearchDialog.Builder(activity).search(goodCodeListBean.getData()).setListener(objectClickListener).create();
+                        dialog.setCanceledOnTouchOutside(true);
+                        dialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String result) {
+                ToastUtils.showShort(result);
+            }
+        });
+    }
+
+    private void showClearDialog() {
+        MessageDialog messageDialog = new MessageDialog.Builder(mContext).setMessage("确认清空商品?").setTitle("提示")
+                .setNegativeButton(menuListener).setPositiveButton(menuListener).create();
+        messageDialog.setCanceledOnTouchOutside(true);
+        messageDialog.show();
+    }
 
     /**
      * 开始扫码监听按钮

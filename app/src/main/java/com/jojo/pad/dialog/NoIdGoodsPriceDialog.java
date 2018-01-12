@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.R;
 import com.jojo.pad.constant.Constant;
 import com.jojo.pad.listener.ViewClickListener;
@@ -174,10 +176,16 @@ public class NoIdGoodsPriceDialog extends Dialog {
                     stringBuilder.append(9);
                     setNumber();
                     break;
-                case R.id.bt_confirm:
+                case R.id.tv_confirm:
                     if (listener != null){
-                        listener.clickListener(tvPrice.getText().toString(), Constant.VIEW_CLICK_TYPE_PRICE);
+                        double price = Double.parseDouble(tvPrice.getText().toString());
+                        if (price ==0){
+                            ToastUtils.showShort("无码商品售价不能为0");
+                            return;
+                        }
+                        listener.clickListener(tvPrice.getText().toString(), Constant.VIEW_CLICK_TYPE_NOID);
                     }
+                    dialog.dismiss();
                     break;
                 case R.id.btn_d:
                     if (stringBuilder.length() > 0) {

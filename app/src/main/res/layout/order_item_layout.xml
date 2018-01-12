@@ -1,72 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:paddingBottom="@dimen/dp_10"
-    android:paddingTop="@dimen/dp_10">
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dp_1"
-        android:layout_weight="0.1" />
-
-    <TextView
-        android:layout_width="0dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4"
-        android:id="@+id/tv_id"
-        android:text="条码"
-        android:textSize="@dimen/text_size_16" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        >
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/tv_name"
-        android:text="品名"
-        android:textSize="@dimen/text_size_16" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_weight="0.3" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:id="@+id/tv_price"
-        android:text="单价"
-        android:textSize="@dimen/text_size_16" />
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:text="条码"
+            android:textSize="@dimen/text_size_16" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:id="@+id/tv_discount"
-        android:text="折扣"
-        android:textSize="@dimen/text_size_16" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="品名"
+            android:textSize="@dimen/text_size_16" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:id="@+id/tv_sum"
-        android:text="小计"
-        android:textSize="@dimen/text_size_16" />
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="单价"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/tv_discount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="折扣"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/tv_sum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="小计"
+            android:textSize="@dimen/text_size_16" />
 
 
-    <com.jojo.pad.widget.NumberAddSubView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.4"
-        android:id="@+id/nas_count"
-        app:value="1"
-        app:minValue="0"
-        app:maxValue="2000"
-        />
+        <com.jojo.pad.widget.NumberAddSubView
+            android:id="@+id/nas_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            app:maxValue="2000"
+            app:minValue="0"
+            app:value="1" />
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dp_1"
-        android:layout_weight="0.1" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_weight="0.3" />
+    </LinearLayout>
+    <include layout="@layout/line"/>
 </LinearLayout>

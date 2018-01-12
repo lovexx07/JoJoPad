@@ -110,7 +110,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1" />
+            android:layout_weight="0.3" />
 
         <TextView
             android:layout_width="0dp"
@@ -157,15 +157,17 @@
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_1"
-            android:layout_weight="0.1" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3" />
     </LinearLayout>
-
+    <include layout="@layout/line"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@color/white"
+        />
 
     <include layout="@layout/main_root" />
 </LinearLayout>

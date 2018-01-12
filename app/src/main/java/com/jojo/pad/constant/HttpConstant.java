@@ -23,5 +23,8 @@ public class HttpConstant {
         String memberGetRecharge ="Customer/getRecharge";//获取会员储值信息
 
         String rechargeAdd ="Recharge/add";//会员充值
+
+        String goodSearchByCode ="Goods/getDetailFromBarcode";//根据条码获取商品详情
+        String saleAdd ="Sales/add";//结账
     }
 }

@@ -1,5 +1,6 @@
 package com.jojo.pad.ui.activity;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,21 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.constant.Constant;
+import com.jojo.pad.constant.HttpConstant;
+import com.jojo.pad.listener.ResponseListener;
 import com.jojo.pad.listener.ViewClickListener;
+import com.jojo.pad.model.bean.OrderBean;
+import com.jojo.pad.model.bean.result.SaleAddResultBean;
+import com.jojo.pad.model.http.BaseHttp;
+import com.jojo.pad.util.AccountUtil;
+import com.jojo.pad.util.Convert;
 import com.jojo.pad.widget.CheckOutRoot;
 import com.jojo.pad.widget.DiscountSelectView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -76,6 +89,13 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
     private DiscountSelectView discountSelect;
     private boolean isfirstshowdiscount = true;
 
+    private List<OrderBean> datas;
+    private double sum = 0;
+    private String cid;
+    private int paytype = 2;//0货到付款 1微信支付 2现金 3银行卡 4支付宝 5储值卡 6欠款
+    private List<String> saleBeanList;
+    private double end = 0;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_check_outctivity;
@@ -83,7 +103,24 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
 
     @Override
     public void initView() {
-
+        datas = (ArrayList<OrderBean>) getIntent().getSerializableExtra("orders");
+        saleBeanList = new ArrayList<>();
+        if (getIntent().hasExtra("cid")) {
+            cid = getIntent().getStringExtra("cid");
+        }
+        if (datas != null) {
+            for (OrderBean orderBean : datas) {
+                sum += Double.parseDouble(orderBean.getGoods_price()) * orderBean.getCount();
+                Map<String,String> map = new HashMap<>();
+                map.put("gid",orderBean.getGid());
+                map.put("goods_number",orderBean.getCount()+"");
+                map.put("msg","");
+                map.put("discount","10");
+                saleBeanList.add(Convert.toJson(map));
+            }
+            tvOrderSum.setText(sum + "");
+            tvPayEnd.setText(sum + "");
+        }
     }
 
     @Override
@@ -92,9 +129,14 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
             @Override
             public void clickListener(String msg, int type) {
                 if (type == Constant.VIEW_CLICK_TYPE_NUMBER) {
-                    tvOrderSum.setText(msg);
+                    tvPayEnd.setText(msg);
+                    double payend = Double.parseDouble(msg);
+                     end = payend -sum;
+                    tvRepayMoney.setText("" + end);
                 } else if (type == Constant.VIEW_CLICK_TYPE_COMFIRM) {
-                    finish();
+                    if (end >=0) {
+                        saleOrder();
+                    }
                 }
             }
         });
@@ -105,7 +147,40 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
         tvDiscount.setOnClickListener(this);
         tvMore.setOnClickListener(this);
         llRoot.setOnClickListener(this);
+
+        gadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+
+                    case R.id.tv_weixin:
+                        paytype = 1;
+                        tvPayType.setText("微信");
+                        break;
+                    case R.id.tv_cash:
+                        paytype = 2;
+                        tvPayType.setText("现金");
+                        break;
+                    case R.id.tv_zhifubao:
+                        paytype = 4;
+                        tvPayType.setText("支付宝");
+                        break;
+                    case R.id.tv_bank:
+                        paytype = 3;
+                        tvPayType.setText("银行卡");
+                        break;
+                    case R.id.tv_card:
+                        paytype = 5;
+                        tvPayType.setText("储值卡");
+                        break;
+                    default:
+                        paytype = 2;
+                        break;
+                }
+            }
+        });
     }
+
 
     @Override
     public void initData() {
@@ -158,9 +233,9 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
                 @Override
                 public void clickListener(String msg, int type) {
                     mPopWindow.dismiss();
-                    if (type == Constant.VIEW_CLICK_TYPE_NUMBER){
+                    if (type == Constant.VIEW_CLICK_TYPE_NUMBER) {
                         tvDiscountCount.setText(msg);
-                    }else if (type == Constant.VIEW_CLICK_TYPE_COMFIRM){
+                    } else if (type == Constant.VIEW_CLICK_TYPE_COMFIRM) {
                         ToastUtils.showShort("抹零");
                     }
 
@@ -175,10 +250,32 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
                 public void run() {
                     mPopWindow.showAsDropDown(tvDiscountCount);
                 }
-            },800);
-        }else{
+            }, 800);
+        } else {
             mPopWindow.showAsDropDown(tvDiscountCount);
         }
     }
 
+    private void saleOrder() {
+        Map<String, String> map = new HashMap<>();
+        map.put("store_id", AccountUtil.store_id);
+        map.put("user_id", AccountUtil.user_id);
+        map.put("type", paytype+"");
+        map.put("sale_list", Convert.toJson(datas));
+        if (!TextUtils.isEmpty(cid)) {
+            map.put("cid", cid);
+        }
+        BaseHttp.postJson(HttpConstant.Api.saleAdd, Convert.toJson(map), activity, new ResponseListener() {
+            @Override
+            public void onSuccess(Object result) {
+                SaleAddResultBean resultBean = Convert.fromJObject(result,SaleAddResultBean.class);
+                finish();
+            }
+
+            @Override
+            public void onError(String result) {
+                ToastUtils.showShort(result);
+            }
+        });
+    }
 }

@@ -1,5 +1,6 @@
 package com.jojo.pad.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -16,12 +17,22 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jojo.pad.R;
 import com.jojo.pad.adapter.GoodsSearchAdapter;
 import com.jojo.pad.constant.Constant;
+import com.jojo.pad.constant.HttpConstant;
+import com.jojo.pad.listener.ObjectClickListener;
+import com.jojo.pad.listener.ResponseListener;
 import com.jojo.pad.listener.ViewClickListener;
 import com.jojo.pad.model.bean.GoodsSearchBean;
+import com.jojo.pad.model.bean.OrderBean;
+import com.jojo.pad.model.bean.result.GoodCodeListBean;
+import com.jojo.pad.model.http.BaseHttp;
+import com.jojo.pad.util.Convert;
 import com.jojo.pad.widget.SearchView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,30 +63,30 @@ public class GoodsSearchDialog extends Dialog {
         RecyclerView recyclerview;
 
         private String search_str ="";
-        private Context context;
-        private ViewClickListener listener;
+        private Activity activity;
+        private ObjectClickListener<GoodCodeListBean.GoodCodeBean> listener;
         private GoodsSearchAdapter adapter;
-        private List<GoodsSearchBean> datas;
+        private List<GoodCodeListBean.GoodCodeBean> datas = new ArrayList<>();
 
-        public Builder(Context context) {
-            this.context = context;
+        public Builder(Activity activity) {
+            this.activity = activity;
         }
 
-        public Builder setListener(ViewClickListener listener) {
+        public Builder setListener(ObjectClickListener listener) {
             this.listener = listener;
             return this;
         }
 
-        public Builder search(String any){
-            search_str = any;
+        public Builder search(Collection<GoodCodeListBean.GoodCodeBean> resource){
+            datas.addAll(resource);
             return this;
         }
 
         public GoodsSearchDialog create() {
 
-            LayoutInflater inflater = (LayoutInflater) context
+            LayoutInflater inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final GoodsSearchDialog dialog = new GoodsSearchDialog(context, R.style.Dialog);
+            final GoodsSearchDialog dialog = new GoodsSearchDialog(activity, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_goods_layout, null);
             dialog.addContentView(layout, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             ButterKnife.bind(this, dialog);
@@ -89,15 +100,12 @@ public class GoodsSearchDialog extends Dialog {
             searchview.setSearchListener(new ViewClickListener() {
                 @Override
                 public void clickListener(String msg, int type) {
-                    search_str = msg;
-                    getData();
+                    searchGoodById(msg);
                 }
             });
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             recyclerview.setLayoutManager(linearLayoutManager);
-
-            datas = new ArrayList<>();
             adapter = new GoodsSearchAdapter(datas);
             recyclerview.setAdapter(adapter);
 
@@ -105,27 +113,27 @@ public class GoodsSearchDialog extends Dialog {
                 @Override
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                     if (listener != null){
-                        listener.clickListener(datas.get(position).getId(), Constant.VIEW_CLICK_TYPE_SEARCH_DIALOG);
+                        listener.clickListener(datas.get(position), Constant.VIEW_CLICK_TYPE_SEARCH_DIALOG);
                     }
+                    dialog.dismiss();
                 }
             });
-            getData();
             dialog.setContentView(layout);
             return dialog;
         }
-
-        private void getData() {
-            ToastUtils.showShort("查找 "+search_str);
-
-            GoodsSearchBean bean1 = new GoodsSearchBean("123456","巧克力","3");
-            GoodsSearchBean bean2 = new GoodsSearchBean("23896544","苹果","5");
-            GoodsSearchBean bean3 = new GoodsSearchBean("8362447521214","肉","11.5");
-
-            datas.add(bean1);
-            datas.add(bean2);
-            datas.add(bean3);
-
-            adapter.notifyDataSetChanged();
+        private void searchGoodById(String code) {
+            Map<String, String> map = new HashMap<>();
+            map.put("code", code);
+            BaseHttp.getJson(HttpConstant.Api.goodSearchByCode, map,activity , new ResponseListener() {
+                @Override
+                public void onSuccess(Object result) {
+                    GoodCodeListBean goodCodeListBean = Convert.fromJObject(result,GoodCodeListBean.class);
+                    if (goodCodeListBean.getData() != null){
+                        adapter.setNewData(goodCodeListBean.getData());
+                    }
+                }
+            });
         }
     }
+
 }

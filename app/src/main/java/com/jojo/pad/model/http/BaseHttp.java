@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.blankj.utilcode.util.EncodeUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.app.MyApplication;
 import com.jojo.pad.base.BaseBean;
 import com.jojo.pad.base.RootBean;
@@ -77,11 +78,11 @@ public class BaseHttp {
                 });
 
     }
-    public static void getJson(final String url, final Map<String, String> map, final Activity activity, final ResponseListener listener) {
-        OkGo.<String>get(HttpConstant.BaseApi + url)
+    public static void postJson(final String url,String json, final Activity activity, final ResponseListener listener) {
+        OkGo.<String>post(HttpConstant.BaseApi + url)
                 .tag(activity)
                 .headers("token", HttpConstant.TOKEN)
-                .params(map)
+                .upJson(json)
                 .execute(new StringDialogCallback(activity) {
                     @Override
                     public void onError(Response<String> response) {
@@ -91,7 +92,34 @@ public class BaseHttp {
 
                     @Override
                     public void onSuccess(Response<String> response) {
-                        LogUtils.e("postJson：" + response.body().toString());
+                        LogUtils.e("postJson：" + response.body());
+                        RootBean data = Convert.fromJson(response.body(), RootBean.class);
+                        int code = data.getCode();
+                        String msg = data.getMsg();
+                        if (code == 0) {
+                            listener.onSuccess(data.getData());
+                        } else {
+                            handerError(code, msg, activity, listener);
+                        }
+                    }
+                });
+
+    }
+    public static void getJson(final String url, final Map<String, String> map, final Activity activity, final ResponseListener listener) {
+        OkGo.<String>get(HttpConstant.BaseApi + url)
+                .tag(activity)
+                .headers("token", HttpConstant.TOKEN)
+                .params(map)
+                .execute(new StringDialogCallback(activity) {
+                    @Override
+                    public void onError(Response<String> response) {
+                        listener.onError("网络异常!请稍后重试");
+                        LogUtils.e("getJson：" + response.toString());
+                    }
+
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtils.e("getJson：" + response.body().toString());
                         RootBean data = Convert.fromJson(response.body(), RootBean.class);
                         int code = data.getCode();
                         String msg = data.getMsg();
@@ -119,6 +147,9 @@ public class BaseHttp {
             case CODE.INVALID_TOKEN:
                 getToken(MyApplication.getInstance());
                 break;
+            case CODE.INVALID_BARCODE:
+                result = "搜不到商品！";
+                break;
             case CODE.INVALID_USER:
                 result = "账号未注册！";
                 break;
@@ -139,5 +170,7 @@ public class BaseHttp {
         int INVALID_TOKEN = 1003;//		无效的token
         int INVALID_USER = 1005;//		无效用户
         int SYSTEM_ERROR = 1006;//		系统错误
+
+        int INVALID_BARCODE = 2108;//		未找到商品
     }
 }

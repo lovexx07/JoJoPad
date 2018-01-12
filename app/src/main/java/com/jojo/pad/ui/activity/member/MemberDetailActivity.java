@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.constant.Constant;
@@ -101,6 +102,10 @@ public class MemberDetailActivity extends BaseAcitivty implements View.OnClickLi
                 tvRecharge.setText(memberRecharge.getRecharge_fee());
                 tvTotal.setText(memberRecharge.getTotal_cost());
             }
+            @Override
+            public void onError(String result) {
+                ToastUtils.showShort(result);
+            }
         });
     }
 
@@ -126,8 +131,7 @@ public class MemberDetailActivity extends BaseAcitivty implements View.OnClickLi
 
                 for (MemberDetail.AnniversaryBean bean : memberNumber.getAnniversary()) {
                     if ("会员生日".equals(bean.getDate_name()) && !TextUtils.isEmpty(bean.getDate_time())) {
-                        String ss = TimeUtils.millis2String(Long.parseLong(bean.getDate_time()), new SimpleDateFormat("yyyy-MM-dd HH:mm"));
-                        etiBirth.setEditTextValue(ss);
+                        etiBirth.setEditTextValue(bean.getDate_time());
                     }
                 }
 

@@ -162,6 +162,10 @@ public class MemberRechargeActivity extends BaseAcitivty implements View.OnClick
                 setResult(RESULT_OK);
                 finish();
             }
+            @Override
+            public void onError(String result) {
+                ToastUtils.showShort(result);
+            }
         });
     }
 }

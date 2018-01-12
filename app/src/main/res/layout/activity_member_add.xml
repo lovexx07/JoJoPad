@@ -8,6 +8,7 @@
     <com.jojo.pad.widget.PadHeader
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/header"
         app:backcontent="会员新增" />
 
     <include layout="@layout/line" />

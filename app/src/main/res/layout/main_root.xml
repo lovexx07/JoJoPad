@@ -87,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:visibility="invisible"
             android:orientation="vertical">
 
             <TextView
@@ -132,6 +133,7 @@
             android:paddingTop="@dimen/dp_10"
             android:singleLine="true"
             android:text="清空"
+            android:visibility="invisible"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_24" />
 
@@ -146,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="2"
-            android:background="@color/main_heaer"
+            android:background="@android:color/holo_red_light"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/dp_10"
             android:paddingLeft="@dimen/dp_10"

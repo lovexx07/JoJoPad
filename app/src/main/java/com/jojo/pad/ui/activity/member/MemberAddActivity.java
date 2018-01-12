@@ -5,8 +5,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.R;
 import com.jojo.pad.base.BaseAcitivty;
 import com.jojo.pad.constant.HttpConstant;
@@ -16,8 +16,8 @@ import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.util.AccountUtil;
 import com.jojo.pad.util.Convert;
 import com.jojo.pad.widget.EditTextItem;
+import com.jojo.pad.widget.PadHeader;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +52,8 @@ public class MemberAddActivity extends BaseAcitivty implements View.OnClickListe
     TextView tvConfirm;
     @BindView(R.id.eti_weixin)
     EditTextItem etiWeixin;
+    @BindView(R.id.header)
+    PadHeader header;
 
     private String number = "";
 
@@ -69,6 +71,12 @@ public class MemberAddActivity extends BaseAcitivty implements View.OnClickListe
     public void setListener() {
         tvConfirm.setOnClickListener(this);
         tvCancle.setOnClickListener(this);
+        header.setBackClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -100,27 +108,45 @@ public class MemberAddActivity extends BaseAcitivty implements View.OnClickListe
         map.put("number", number);
         map.put("name", etiName.getEditTextValue());
         map.put("phone", etiPhone.getEditTextValue());
-        map.put("qq", etiQq.getEditTextValue());
-        map.put("email", etiEmail.getEditTextValue());
-        map.put("address", etiAddress.getEditTextValue());
-        map.put("like", etiLike.getEditTextValue());
-        map.put("weixin", etiWeixin.getEditTextValue());
-        map.put("desc", etiDetail.getEditTextValue());
+
+        if (!TextUtils.isEmpty(etiQq.getEditTextValue())) {
+            map.put("qq", etiQq.getEditTextValue());
+        }
+        if (!TextUtils.isEmpty(etiEmail.getEditTextValue())) {
+            map.put("email", etiEmail.getEditTextValue());
+        }
+        if (!TextUtils.isEmpty(etiAddress.getEditTextValue())) {
+            map.put("address", etiAddress.getEditTextValue());
+        }
+        if (!TextUtils.isEmpty(etiLike.getEditTextValue())) {
+            map.put("like", etiLike.getEditTextValue());
+        }
+        if (!TextUtils.isEmpty(etiWeixin.getEditTextValue())) {
+            map.put("weixin", etiWeixin.getEditTextValue());
+        }
+        if (!TextUtils.isEmpty(etiDetail.getEditTextValue())) {
+            map.put("desc", etiDetail.getEditTextValue());
+        }
         if (!TextUtils.isEmpty(datestr)) {
             long aaa = TimeUtils.string2Millis(datestr, new SimpleDateFormat("yyyy-MM-dd HH:mm"));
-            List<Map<String,String>> dates = new ArrayList<>();
-            Map<String,String> date = new HashMap<>();
-            date.put("date_name","会员生日");
-            date.put("date_time",aaa+"");
+            List<Map<String, String>> dates = new ArrayList<>();
+            Map<String, String> date = new HashMap<>();
+            date.put("date_name", "会员生日");
+            date.put("date_time", aaa + "");
             dates.add(date);
             map.put("anniversary", Convert.toJson(dates));
 
         }
 
-        BaseHttp.postJson(HttpConstant.Api.addMember, map, activity, new ResponseListener() {
+        BaseHttp.postJson(HttpConstant.Api.addMember, Convert.toJson(map), activity, new ResponseListener() {
             @Override
             public void onSuccess(Object result) {
                 finish();
+            }
+
+            @Override
+            public void onError(String result) {
+                ToastUtils.showShort(result);
             }
         });
     }
@@ -136,13 +162,11 @@ public class MemberAddActivity extends BaseAcitivty implements View.OnClickListe
                 number = memberNumber.getNumber();
                 etiIds.setEditTextValue(number);
             }
-        });
-    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+            @Override
+            public void onError(String result) {
+                ToastUtils.showShort(result);
+            }
+        });
     }
 }
