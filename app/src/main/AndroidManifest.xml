@@ -60,17 +60,17 @@
             android:name=".util.UsbDemoActivity"
             android:label="@string/title_activity_usb_demo"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
+            <!--<intent-filter>-->
 
-                <!-- usb设备的动作 -->
-                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+                <!--&lt;!&ndash; usb设备的动作 &ndash;&gt;-->
+                <!--<action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <!-- android设备的信息过滤 -->
-            <meta-data
-                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
-                android:resource="@xml/qwm_usb_xml" />
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+            <!--&lt;!&ndash; android设备的信息过滤 &ndash;&gt;-->
+            <!--<meta-data-->
+                <!--android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"-->
+                <!--android:resource="@xml/qwm_usb_xml" />-->
         </activity>
 
         <service

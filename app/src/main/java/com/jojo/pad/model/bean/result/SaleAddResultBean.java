@@ -5,6 +5,17 @@ package com.jojo.pad.model.bean.result;
  */
 
 public class SaleAddResultBean {
+    public SaleAddResultBean() {
+    }
+
+    public SaleAddResultBean(String is_retail, String real_money, String order_id, String pay_type, String pay_type_name) {
+        this.is_retail = is_retail;
+        this.real_money = real_money;
+        this.order_id = order_id;
+        this.pay_type = pay_type;
+        this.pay_type_name = pay_type_name;
+    }
+
     private String is_retail;
     private String real_money;
     private String order_id;

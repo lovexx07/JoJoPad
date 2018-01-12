@@ -366,12 +366,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp_20"
-                android:background="@color/gray_b0"
+                android:background="@drawable/rect_stroke"
                 android:gravity="center"
                 android:paddingBottom="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_10"
                 android:text="打印单据"
+                android:checked="true"
                 android:textColor="@color/gray_4d" />
         </LinearLayout>
     </LinearLayout>

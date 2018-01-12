@@ -1,4 +1,4 @@
-package com.jojo.pad.print;
+package com.jojo.pad.util;
 
 /**
  * Created by Administrator on 2018/1/7 0007.

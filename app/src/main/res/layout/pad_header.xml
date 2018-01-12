@@ -5,6 +5,8 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingRight="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_5"
+    android:paddingBottom="@dimen/dp_5"
     android:id="@+id/ll_root"
     android:background="@android:color/holo_blue_light"
     >

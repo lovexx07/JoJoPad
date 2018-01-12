@@ -274,7 +274,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                 if (!TextUtils.isEmpty(cid)) {
                     bundle.putString("cid",cid);
                 }
-                toActivity(CheckOutActivity.class,bundle);
+                toActivityForResult(CheckOutActivity.class,bundle,Constant.INTENT_FAR_RESULT_A);
                 break;
             case R.id.tv_clear:
                 showClearDialog();
@@ -322,7 +322,11 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-
+                case Constant.INTENT_FAR_RESULT_A:
+                    datas.clear();
+                    normalCompanyAdapter.notifyDataSetChanged();
+                    refreshSum();
+                    break;
                 default:
                     LogUtils.e("onActivityResult");
             }

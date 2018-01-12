@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
         android:paddingRight="@dimen/dp_10">
 
         <TextView

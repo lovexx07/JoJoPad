@@ -76,6 +76,7 @@ public class MemberSearchActivity extends BaseAcitivty implements View.OnClickLi
                 Bundle intent = new Bundle();
                 intent.putString("cid", bean.getCid());
                 intent.putString("cname", bean.getName());
+                intent.putString("number", bean.getNumber());
                 intent.putString("crecharge", bean.getRecharge_fee());
                 toActivity(MemberDetailActivity.class, intent);
                 finish();
