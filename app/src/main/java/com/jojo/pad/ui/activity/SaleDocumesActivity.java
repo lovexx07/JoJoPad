@@ -2,9 +2,11 @@ package com.jojo.pad.ui.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jojo.pad.R;
 import com.jojo.pad.adapter.SaleDocumentGoodsAdapter;
 import com.jojo.pad.adapter.SaleDocumentOrderAdapter;
@@ -79,7 +81,12 @@ public class SaleDocumesActivity extends BaseAcitivty {
 
     @Override
     public void setListener() {
-
+        saleDocumentOrderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                saleDocumentGoodsAdapter.setNewData(orderlist.get(position).getSales_list());
+            }
+        });
     }
 
     @Override

@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:imeOptions="actionSearch"
         android:lines="1"
-        android:inputType="number"
         android:id="@+id/et_input"
         android:gravity="center"
         android:focusable="true"

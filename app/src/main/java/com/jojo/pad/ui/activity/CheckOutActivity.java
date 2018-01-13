@@ -116,6 +116,7 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
         if (getIntent().hasExtra("cid")) {
             cid = getIntent().getStringExtra("cid");
         }
+        LogUtils.e(datas.size());
         if (datas != null) {
             for (OrderBean orderBean : datas) {
                 sum += Double.parseDouble(orderBean.getGoods_price()) * orderBean.getCount();

@@ -31,6 +31,7 @@ import com.jojo.pad.listener.ResponseListener;
 import com.jojo.pad.listener.ViewClickListener;
 import com.jojo.pad.model.bean.OrderBean;
 import com.jojo.pad.model.bean.result.GoodCodeListBean;
+import com.jojo.pad.model.bean.result.GoodSearchListBean;
 import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.scaner.BarcodeScannerResolver;
 import com.jojo.pad.ui.activity.CheckOutActivity;
@@ -45,6 +46,7 @@ import com.jojo.pad.ui.activity.TransferActivity;
 import com.jojo.pad.ui.activity.member.MemberAddActivity;
 import com.jojo.pad.ui.activity.member.MemberDetailActivity;
 import com.jojo.pad.ui.activity.member.MemberSearchActivity;
+import com.jojo.pad.util.AccountUtil;
 import com.jojo.pad.util.Convert;
 import com.jojo.pad.widget.SearchView;
 
@@ -105,7 +107,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
     LinearLayout llMemberResult;
 
     private ViewClickListener menuListener;
-    private ObjectClickListener<GoodCodeListBean.GoodCodeBean> objectClickListener;
+    private ObjectClickListener<GoodSearchListBean.GoodsListBean> objectClickListener;
     //扫码枪监听
     private BarcodeScannerResolver mBarcodeScannerResolver;
 
@@ -155,9 +157,9 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                 }
             }
         };
-        objectClickListener = new ObjectClickListener<GoodCodeListBean.GoodCodeBean>() {
+        objectClickListener = new ObjectClickListener<GoodSearchListBean.GoodsListBean>() {
             @Override
-            public void clickListener(GoodCodeListBean.GoodCodeBean goodCodeBean, int type) {
+            public void clickListener(GoodSearchListBean.GoodsListBean goodCodeBean, int type) {
                 OrderBean bean = new OrderBean(goodCodeBean.getGoods_name(), goodCodeBean.getGoods_price(), goodCodeBean.getBarcode(), goodCodeBean.getGid());
                 normalCompanyAdapter.addData(bean);
                 refreshSum();
@@ -245,9 +247,10 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                 dialog.show();
                 break;
             case R.id.iv_input:
-                NoIdGoodsPriceDialog goodsPriceDialog = new NoIdGoodsPriceDialog.Builder(mContext).setListener(menuListener).create();
-                goodsPriceDialog.setCanceledOnTouchOutside(true);
-                goodsPriceDialog.show();
+//                NoIdGoodsPriceDialog goodsPriceDialog = new NoIdGoodsPriceDialog.Builder(mContext).setListener(menuListener).create();
+//                goodsPriceDialog.setCanceledOnTouchOutside(true);
+//                goodsPriceDialog.show();
+                ToastUtils.showShort("开发中！");
                 break;
             case R.id.iv_message:
                 ToastUtils.showShort("暂无网店订单，货物信息或消息通知");
@@ -351,30 +354,58 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
     }
 
     private void searchGoodById(String code) {
+//        Map<String, String> map = new HashMap<>();
+//        map.put("code", code);
+//        BaseHttp.getJson(HttpConstant.Api.goodSearchByCode, map, activity, new ResponseListener() {
+//            @Override
+//            public void onSuccess(Object result) {
+//                GoodCodeListBean goodCodeListBean = Convert.fromJObject(result,GoodCodeListBean.class);
+//                if (goodCodeListBean.getData() != null) {
+//                    if (goodCodeListBean.getData().size() == 1) {
+//                        GoodCodeListBean.GoodCodeBean goodCodeBean = goodCodeListBean.getData().get(0);
+//                        OrderBean bean = new OrderBean(goodCodeBean.getGoods_name(), goodCodeBean.getGoods_price(), goodCodeBean.getBarcode(), goodCodeBean.getGid());
+//                        normalCompanyAdapter.addData(bean);
+//                    } else {
+//                        GoodsSearchDialog dialog = new GoodsSearchDialog.Builder(activity).search(goodCodeListBean.getData()).setListener(objectClickListener).create();
+//                        dialog.setCanceledOnTouchOutside(true);
+//                        dialog.show();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onError(String result) {
+//                ToastUtils.showShort(result);
+//            }
+//        });
+
+
         Map<String, String> map = new HashMap<>();
-        map.put("code", code);
-        BaseHttp.getJson(HttpConstant.Api.goodSearchByCode, map, activity, new ResponseListener() {
+        map.put("store_id", AccountUtil.store_id);
+        map.put("user_id", AccountUtil.user_id);
+        map.put("goods_name", code);
+        BaseHttp.getJson(HttpConstant.Api.goodGetList, map, activity, new ResponseListener() {
             @Override
             public void onSuccess(Object result) {
-                GoodCodeListBean goodCodeListBean = Convert.fromJObject(result,GoodCodeListBean.class);
-                if (goodCodeListBean.getData() != null) {
-                    if (goodCodeListBean.getData().size() == 1) {
-                        GoodCodeListBean.GoodCodeBean goodCodeBean = goodCodeListBean.getData().get(0);
+                GoodSearchListBean goodCodeListBean = Convert.fromJObject(result,GoodSearchListBean.class);
+                if (goodCodeListBean.getGoods_list() != null) {
+                    if (goodCodeListBean.getGoods_list().size() == 1) {
+                        GoodSearchListBean.GoodsListBean goodCodeBean = goodCodeListBean.getGoods_list().get(0);
                         OrderBean bean = new OrderBean(goodCodeBean.getGoods_name(), goodCodeBean.getGoods_price(), goodCodeBean.getBarcode(), goodCodeBean.getGid());
                         normalCompanyAdapter.addData(bean);
                     } else {
-                        GoodsSearchDialog dialog = new GoodsSearchDialog.Builder(activity).search(goodCodeListBean.getData()).setListener(objectClickListener).create();
+                        GoodsSearchDialog dialog = new GoodsSearchDialog.Builder(activity).search(goodCodeListBean.getGoods_list()).setListener(objectClickListener).create();
                         dialog.setCanceledOnTouchOutside(true);
                         dialog.show();
                     }
                 }
             }
-
             @Override
             public void onError(String result) {
                 ToastUtils.showShort(result);
             }
         });
+
     }
 
     private void showClearDialog() {

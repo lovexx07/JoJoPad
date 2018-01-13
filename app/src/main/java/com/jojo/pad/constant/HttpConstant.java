@@ -25,6 +25,7 @@ public class HttpConstant {
         String rechargeAdd ="Recharge/add";//会员充值
 
         String goodSearchByCode ="Goods/getDetailFromBarcode";//根据条码获取商品详情
+        String goodGetList ="Goods/getList";//获取商品列表
         String saleAdd ="Sales/add";//结账
         String saleList ="Sales/getList";//销售列表
     }

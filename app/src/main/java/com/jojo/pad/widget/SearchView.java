@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -35,7 +37,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
     @BindView(R.id.iv_dele)
     ImageView iv_dele;
 
-    private ViewClickListener listener;
+    private ViewClickListener listener, autolistener;
 
     public SearchView(Context context) {
         this(context, null);
@@ -67,19 +69,41 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         View.inflate(context, R.layout.widget_search, this);
         ButterKnife.bind(this);
 
+
         iv_search.setOnClickListener(this);
         iv_dele.setOnClickListener(this);
+
+        et_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (autolistener != null){
+                    autolistener.clickListener(et_input.getText().toString(), Constant.VIEW_CLICK_TYPE_SEARCH_DIALOG);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
+
     public void setEt_inputValue(String input) {
         et_input.setText(input);
         if (listener != null) {
             listener.clickListener(input, Constant.VIEW_CLICK_TYPE_SEARCH);
         }
     }
-    public void setSearchString(String str){
+
+    public void setSearchString(String str) {
         et_input.setText(str);
     }
-    public String getSearchString(){
+
+    public String getSearchString() {
         return et_input.getText().toString();
     }
 
@@ -102,5 +126,9 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
 
     public void setSearchListener(ViewClickListener listener) {
         this.listener = listener;
+    }
+
+    public void setAutoSearchListener(ViewClickListener autolistener) {
+        this.autolistener = autolistener;
     }
 }
