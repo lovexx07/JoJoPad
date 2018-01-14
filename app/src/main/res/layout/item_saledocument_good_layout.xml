@@ -15,7 +15,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:padding="@dimen/dp_5"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/gray_a0"
             android:id="@+id/tv_name" />
 
         <TextView
@@ -23,7 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="@dimen/dp_5"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/gray_a0"
             android:id="@+id/tv_count"
             />
 
@@ -32,7 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="@dimen/dp_5"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/gray_a0"
             android:id="@+id/tv_price"
             />
         <TextView
@@ -40,9 +43,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:padding="@dimen/dp_5"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/gray_a0"
             android:id="@+id/tv_sum"
             />
     </LinearLayout>
-    <include layout="@layout/line"/>
+    <include layout="@layout/line_c0"/>
+
 </LinearLayout>

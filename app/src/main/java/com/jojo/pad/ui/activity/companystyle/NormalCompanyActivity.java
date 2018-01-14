@@ -1,5 +1,6 @@
 package com.jojo.pad.ui.activity.companystyle;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -326,6 +327,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Constant.INTENT_FAR_RESULT_A:
+                    searchView.setSearchString("");
                     datas.clear();
                     normalCompanyAdapter.notifyDataSetChanged();
                     refreshSum();
@@ -395,7 +397,13 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
                         normalCompanyAdapter.addData(bean);
                     } else {
                         GoodsSearchDialog dialog = new GoodsSearchDialog.Builder(activity).search(goodCodeListBean.getGoods_list()).setListener(objectClickListener).create();
-                        dialog.setCanceledOnTouchOutside(true);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                searchView.setSearchString("");
+                            }
+                        });
                         dialog.show();
                     }
                 }

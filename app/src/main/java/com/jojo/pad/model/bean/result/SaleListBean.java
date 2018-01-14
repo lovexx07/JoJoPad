@@ -78,6 +78,16 @@ public class SaleListBean {
         private String type_name;
         private String short_time;
         private int sale_num;
+        private boolean isselect = false;//是否选中，自定义参数
+
+        public boolean isIsselect() {
+            return isselect;
+        }
+
+        public void setIsselect(boolean isselect) {
+            this.isselect = isselect;
+        }
+
         private List<SalesListBean> sales_list;
 
         public String getOrder_id() {

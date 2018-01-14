@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.blankj.utilcode.util.EncodeUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.app.MyApplication;
 import com.jojo.pad.constant.HttpConstant;
@@ -35,6 +36,7 @@ public abstract class BaseAcitivty extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ScreenUtils.setLandscape(this);
         if (getLayoutId() != 0){
             setContentView(getLayoutId());
         }

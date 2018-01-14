@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -26,7 +25,7 @@
         android:layout_weight="5"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/switch_state"
@@ -60,6 +59,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
+            android:focusable="true"
             android:paddingLeft="@dimen/dp_10" />
 
         <TextView

@@ -21,6 +21,7 @@ import com.jojo.pad.constant.HttpConstant;
 import com.jojo.pad.listener.ResponseListener;
 import com.jojo.pad.listener.ViewClickListener;
 import com.jojo.pad.model.bean.OrderBean;
+import com.jojo.pad.model.bean.SaleBean;
 import com.jojo.pad.model.bean.result.SaleAddResultBean;
 import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.model.bean.print.PrintGoodBean;
@@ -99,11 +100,12 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
     private int  cousts = 0;//总数量
     private String cid;
     private int paytype = 2;//0货到付款 1微信支付 2现金 3银行卡 4支付宝 5储值卡 6欠款
-    private List<String> saleBeanList;
+    private List<SaleBean.Data> saleBeanList;
     private double end = 0;
 
     private UsbPrinter usbprint;
 
+    private SaleBean saleBean;
     @Override
     public int getLayoutId() {
         return R.layout.activity_check_outctivity;
@@ -113,21 +115,22 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
     public void initView() {
         datas = (ArrayList<OrderBean>) getIntent().getSerializableExtra("orders");
         saleBeanList = new ArrayList<>();
+        saleBean = new SaleBean();
         if (getIntent().hasExtra("cid")) {
             cid = getIntent().getStringExtra("cid");
         }
-        LogUtils.e(datas.size());
         if (datas != null) {
             for (OrderBean orderBean : datas) {
                 sum += Double.parseDouble(orderBean.getGoods_price()) * orderBean.getCount();
                 cousts += orderBean.getCount();
-                Map<String,String> map = new HashMap<>();
-                map.put("gid",orderBean.getGid());
-                map.put("goods_number",orderBean.getCount()+"");
-                map.put("msg","");
-                map.put("discount","10");
-                saleBeanList.add(Convert.toJson(map));
+                SaleBean.Data sale = new SaleBean.Data();
+                sale.setGid(orderBean.getGid());
+                sale.setDiscount("10");
+                sale.setGoods_number(orderBean.getCount()+"");
+                sale.setMsg("");
+                saleBeanList.add(sale);
             }
+            saleBean.setSale_list(saleBeanList);
             tvOrderSum.setText(sum + "");
             tvPayEnd.setText(sum + "");
         }
@@ -278,20 +281,50 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
     }
 
     private void saleOrder() {
-        Map<String, String> map = new HashMap<>();
-        map.put("store_id", AccountUtil.store_id);
-        map.put("user_id", AccountUtil.user_id);
-        map.put("type", paytype+"");
-        map.put("sale_list", Convert.toJson(datas));
+        saleBean.setStore_id(AccountUtil.store_id);
+        saleBean.setUser_id(AccountUtil.user_id);
+        saleBean.setType(paytype);
         if (!TextUtils.isEmpty(cid)) {
-            map.put("cid", cid);
+            saleBean.setCid(cid);
         }
-        BaseHttp.postJson(HttpConstant.Api.saleAdd, Convert.toJson(map), activity, new ResponseListener() {
+        BaseHttp.postJson(HttpConstant.Api.saleAdd, Convert.toJson(saleBean), activity, new ResponseListener() {
             @Override
             public void onSuccess(Object result) {
-                final SaleAddResultBean resultBean = Convert.fromJObject(result,SaleAddResultBean.class);
+                if (tvDocuments.isChecked()) {
+                    final SaleAddResultBean resultBean = Convert.fromJObject(result,SaleAddResultBean.class);
+
+                    final PrintGoodBean printGoodBean = new PrintGoodBean();
+                    printGoodBean.setCount(cousts);
+                    printGoodBean.setSum(sum);
+                    printGoodBean.setOrder_id(resultBean.getOrder_id());
+                    printGoodBean.setPay_type_name(resultBean.getPay_type_name());
+                    printGoodBean.setOrder_id(resultBean.getOrder_id());
+                    printGoodBean.setReal_money(resultBean.getReal_money());
+                    printGoodBean.setDatas(datas);
 
 
+
+                    ThreadPoolManager.newInstance().addExecuteTask(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                usbprint.sendMessageToPoint(PrinterUtil.printSaleOrder(printGoodBean));
+                            } catch (Exception e) {
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    LogUtils.e("usbprint");
+                                    setResult(RESULT_OK);
+                                    finish();
+                                }
+                            });
+                        }
+                    });
+                }else {
+                    setResult(RESULT_OK);
+                    finish();
+                }
             }
 
             @Override
@@ -300,41 +333,7 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
             }
         });
 
-        if (tvDocuments.isChecked()) {
-            final SaleAddResultBean resultBean = new SaleAddResultBean("1", "99.88", "672", "2", "现金支付");
 
-            final PrintGoodBean printGoodBean = new PrintGoodBean();
-            printGoodBean.setCount(cousts);
-            printGoodBean.setSum(sum);
-            printGoodBean.setOrder_id(resultBean.getOrder_id());
-            printGoodBean.setPay_type_name(resultBean.getPay_type_name());
-            printGoodBean.setOrder_id(resultBean.getOrder_id());
-            printGoodBean.setReal_money(resultBean.getReal_money());
-            printGoodBean.setDatas(datas);
-
-
-
-            ThreadPoolManager.newInstance().addExecuteTask(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        usbprint.sendMessageToPoint(PrinterUtil.printSaleOrder(printGoodBean));
-                    } catch (Exception e) {
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            LogUtils.e("usbprint");
-                            setResult(RESULT_OK);
-                            finish();
-                        }
-                    });
-                }
-            });
-        }else {
-            setResult(RESULT_OK);
-            finish();
-        }
     }
     @Override
     protected void onDestroy() {
