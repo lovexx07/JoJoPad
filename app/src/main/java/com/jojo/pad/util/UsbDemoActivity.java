@@ -15,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jojo.pad.R;
 
 import java.util.HashMap;
@@ -65,11 +67,14 @@ public class UsbDemoActivity extends AppCompatActivity {
     private PendingIntent mPermissionIntent;
     private static final String ACTION_USB_PERMISSION = "com.usb.printer.USB_PERMISSION";
 
+    private TextView tv_list;
+    StringBuilder sb = new StringBuilder();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usb_demo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tv_list = (TextView) findViewById(R.id.tv_list);
         setSupportActionBar(toolbar);
 
 
@@ -97,7 +102,9 @@ public class UsbDemoActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try{
-                            sendMessageToPoint("杞文明\nqiwenming\nqiwenmingshiwo".getBytes("gbk"));
+//                            sendMessageToPoint("杞文明\nqiwenming\nqiwenmingshiwo".getBytes("gbk"));
+                            sendMessageToPoint(22.0);
+
                         }catch (Exception e){
                         }
                     }
@@ -114,15 +121,20 @@ public class UsbDemoActivity extends AppCompatActivity {
     public void enumeraterDevices(){
         HashMap<String, UsbDevice> deviceList = usbManager.getDeviceList();
         Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
-        StringBuilder sb = new StringBuilder();
+
         while(deviceIterator.hasNext()){
             UsbDevice device = deviceIterator.next();
             sb.append(devicesString(device));
-            if (device.getVendorId() == 1155 && device.getProductId() == 1803) {
+//            if (device.getVendorId() == 1155 && device.getProductId() == 1803) {
+//                myUsbDevice = device; // 获取USBDevice
+//                usbManager.requestPermission(device, mPermissionIntent);
+//            }
+            if (device.getVendorId() == 3034 && device.getProductId() == 46880) {
                 myUsbDevice = device; // 获取USBDevice
                 usbManager.requestPermission(device, mPermissionIntent);
             }
         }
+
     }
 
     /**
@@ -145,8 +157,12 @@ public class UsbDemoActivity extends AppCompatActivity {
     private void getDeviceInterface() {
         if(myUsbDevice!=null){
             Log.i(TAG,"interfaceCounts : "+myUsbDevice.getInterfaceCount());
+            sb.append("interfaceCounts : "+myUsbDevice.getInterfaceCount()+"\n");
             usbInterface = myUsbDevice.getInterface(0);
             System.out.println("成功获得设备接口:" + usbInterface.getId());
+            ToastUtils.showShort("成功获得设备接口:" + usbInterface.getId());
+
+            sb.append("成功获得设备接口:" + usbInterface.getId()+"\n");
         }
     }
 
@@ -162,23 +178,28 @@ public class UsbDemoActivity extends AppCompatActivity {
                         if(UsbConstants.USB_DIR_OUT==ep.getDirection()){//输出
                             epBulkOut = ep;
                             System.out.println("Find the BulkEndpointOut," + "index:" + i + "," + "使用端点号："+ epBulkOut.getEndpointNumber());
+                            sb.append("Find the BulkEndpointOut," + "index:" + i + "," + "使用端点号："+ epBulkOut.getEndpointNumber()+"\n");
                         }else{
                             epBulkIn = ep;
                             System.out .println("Find the BulkEndpointIn:" + "index:" + i+ "," + "使用端点号："+ epBulkIn.getEndpointNumber());
+                            sb.append("Find the BulkEndpointIn:" + "index:" + i+ "," + "使用端点号："+ epBulkIn.getEndpointNumber()+"\n");
                         }
                         break;
                     case UsbConstants.USB_ENDPOINT_XFER_CONTROL://控制
                         epControl = ep;
                         System.out.println("find the ControlEndPoint:" + "index:" + i+ "," + epControl.getEndpointNumber());
+                        sb.append("find the ControlEndPoint:" + "index:" + i+ "," + epControl.getEndpointNumber()+"\n");
                         break;
                     case UsbConstants.USB_ENDPOINT_XFER_INT://中断
                         if (ep.getDirection() == UsbConstants.USB_DIR_OUT) {//输出
                             epIntEndpointOut = ep;
                             System.out.println("find the InterruptEndpointOut:" + "index:" + i + ","  + epIntEndpointOut.getEndpointNumber());
+                            sb.append("find the InterruptEndpointOut:" + "index:" + i + ","  + epIntEndpointOut.getEndpointNumber()+"\n");
                         }
                         if (ep.getDirection() == UsbConstants.USB_DIR_IN) {
                             epIntEndpointIn = ep;
                             System.out.println("find the InterruptEndpointIn:" + "index:" + i + ","+ epIntEndpointIn.getEndpointNumber());
+                            sb.append("find the InterruptEndpointIn:" + "index:" + i + ","+ epIntEndpointIn.getEndpointNumber()+"\n");
                         }
                         break;
                     default:
@@ -195,7 +216,6 @@ public class UsbDemoActivity extends AppCompatActivity {
         if(usbInterface!=null){//接口是否为null
             // 在open前判断是否有连接权限；对于连接权限可以静态分配，也可以动态分配权限
             UsbDeviceConnection conn = null;
-            Toast.makeText(this,"openDevice",Toast.LENGTH_SHORT).show();
             if(usbManager.hasPermission(myUsbDevice)){
                 //有权限，那么打开
                 conn = usbManager.openDevice(myUsbDevice);
@@ -211,12 +231,16 @@ public class UsbDemoActivity extends AppCompatActivity {
                     System.out.println("open设备成功！");
                 final String mySerial = myDeviceConnection.getSerial();
                 System.out.println("设备serial number：" + mySerial);
+
+                sb.append("设备serial number：" + mySerial+"\n");
             } else {
                 System.out.println("无法打开连接通道。");
                 Toast.makeText(this,"无法打开连接通道。",Toast.LENGTH_SHORT).show();
                 conn.close();
             }
         }
+
+        tv_list.setText(sb.toString());
     }
 
     /**
@@ -230,5 +254,23 @@ public class UsbDemoActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this,"发送失败的",Toast.LENGTH_SHORT).show();
         }
+    }
+    public void sendMessageToPoint(double value) {
+        byte[] buffer = double2Bytes(value);
+        if(myDeviceConnection.bulkTransfer(epBulkOut,buffer,buffer.length,0) >= 0){
+            //0 或者正数表示成功
+            Toast.makeText(this,"发送成功",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"发送失败的",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static byte[] double2Bytes(double d) {
+        long value = Double.doubleToRawLongBits(d);
+        byte[] byteRet = new byte[8];
+        for (int i = 0; i < 8; i++) {
+            byteRet[i] = (byte) ((value >> 8 * i) & 0xff);
+        }
+        return byteRet;
     }
 }

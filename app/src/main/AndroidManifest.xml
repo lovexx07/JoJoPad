@@ -67,10 +67,10 @@
 
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
-            <!--&lt;!&ndash; android设备的信息过滤 &ndash;&gt;-->
-            <!--<meta-data-->
-                <!--android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"-->
-                <!--android:resource="@xml/qwm_usb_xml" />-->
+            <!-- android设备的信息过滤 -->
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/qwm_usb_xml" />
         </activity>
 
         <service
