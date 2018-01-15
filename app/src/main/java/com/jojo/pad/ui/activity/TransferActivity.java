@@ -28,6 +28,7 @@ public class TransferActivity extends BaseAcitivty implements View.OnClickListen
     @Override
     public void setListener() {
         pheader.setDateClickListener(this);
+        pheader.setBackClickListener(this);
     }
 
     @Override
@@ -40,6 +41,9 @@ public class TransferActivity extends BaseAcitivty implements View.OnClickListen
         switch (view.getId()) {
             case R.id.tv_date:
                 toActivity(TransferDayActivity.class);
+                break;
+            case R.id.tv_back:
+                finish();
                 break;
             default:
                 break;

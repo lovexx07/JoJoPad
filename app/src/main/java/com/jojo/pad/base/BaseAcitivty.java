@@ -6,21 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.blankj.utilcode.util.EncodeUtils;
-import com.blankj.utilcode.util.EncryptUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.jojo.pad.app.MyApplication;
-import com.jojo.pad.constant.HttpConstant;
-import com.jojo.pad.listener.ResponseListener;
-import com.jojo.pad.model.bean.result.ResTokenBean;
-import com.jojo.pad.model.http.LzyResponse;
-import com.jojo.pad.model.http.callback.JsonCallback;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
-
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -36,7 +23,6 @@ public abstract class BaseAcitivty extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ScreenUtils.setLandscape(this);
         if (getLayoutId() != 0){
             setContentView(getLayoutId());
         }

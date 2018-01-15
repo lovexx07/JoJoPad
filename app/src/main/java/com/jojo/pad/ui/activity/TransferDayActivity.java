@@ -37,7 +37,7 @@ public class TransferDayActivity extends BaseAcitivty implements View.OnClickLis
     public void setListener() {
         tvDateStart.setOnClickListener(this);
         tvDateEnd.setOnClickListener(this);
-
+        tvBack.setOnClickListener(this);
         mlistener = new ViewClickListener() {
             @Override
             public void clickListener(String msg, int type) {
@@ -69,6 +69,9 @@ public class TransferDayActivity extends BaseAcitivty implements View.OnClickLis
                 enddatePickDialog.setCanceledOnTouchOutside(true);
                 enddatePickDialog.show();
                 isstart = false;
+                break;
+            case R.id.tv_back:
+                finish();
                 break;
             default:
                 break;

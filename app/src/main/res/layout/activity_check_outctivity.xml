@@ -9,6 +9,7 @@
     <com.jojo.pad.widget.PadHeader
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/header"
         app:backcontent="收款" />
 
     <LinearLayout
@@ -170,6 +171,7 @@
                             android:paddingLeft="@dimen/dp_10"
                             android:paddingRight="@dimen/dp_10"
                             android:paddingTop="@dimen/dp_5"
+                            android:visibility="gone"
                             android:text="优惠券码" />
 
                         <TextView

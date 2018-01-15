@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jojo.pad.R;
 import com.jojo.pad.model.bean.result.GoodCodeListBean;
 import com.jojo.pad.model.bean.result.GoodSearchListBean;
+import com.jojo.pad.util.PriceUtil;
 
 import java.util.List;
 
@@ -23,6 +24,6 @@ public class GoodsSearchAdapter extends BaseQuickAdapter<GoodSearchListBean.Good
     protected void convert(BaseViewHolder helper, GoodSearchListBean.GoodsListBean item) {
         helper.setText(R.id.tv_id,item.getBarcode());
         helper.setText(R.id.tv_name,item.getGoods_name());
-        helper.setText(R.id.tv_price,"￥"+item.getGoods_price());
+        helper.setText(R.id.tv_price,"￥"+ PriceUtil.getBuety(item.getGoods_price()));
     }
 }

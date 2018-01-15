@@ -1,10 +1,8 @@
 package com.jojo.pad.ui.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.webkit.JsPromptResult;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -27,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 销售单据
@@ -163,18 +160,20 @@ public class SaleDocumesActivity extends BaseAcitivty {
         });
     }
     private void setOrderDetail() {
-        tvOrderId.setText("单号：" + selectedOrderBean.getAction_id());
-        if (!"非会员".equals(selectedOrderBean.getName())) {
-            tvMember.setText(selectedOrderBean.getName());
-        }
-        tvGoodsCount.setText("共"+selectedOrderBean.getSale_num()+"件");
-        tvGoodsSum.setText("商品总额：￥"+selectedOrderBean.getPrices());
-        tvGoodsDiscount.setText("-优惠："+"--");
-        tvGoodsMust.setText("=应收：￥"+"--");
-        tvPayType.setText(selectedOrderBean.getType_name()+"：￥"+"--");
-        tvPayEnd.setText("=实收：￥"+"--");
+        if (selectedOrderBean != null) {
+            tvOrderId.setText("单号：" + selectedOrderBean.getAction_id());
+            if (!"非会员".equals(selectedOrderBean.getName())) {
+                tvMember.setText(selectedOrderBean.getName());
+            }
+            tvGoodsCount.setText("共" + selectedOrderBean.getSale_num() + "件");
+            tvGoodsSum.setText("商品总额：￥" + selectedOrderBean.getPrices());
+            tvGoodsDiscount.setText("-优惠：" + "--");
+            tvGoodsMust.setText("=应收：￥" + "--");
+            tvPayType.setText(selectedOrderBean.getType_name() + "：￥" + "--");
+            tvPayEnd.setText("=实收：￥" + "--");
 
-        tvOrderTime.setText("收银："+selectedOrderBean.getShort_time());
-        tvOrderOperator.setText("收银员："+selectedOrderBean.getOperator());
+            tvOrderTime.setText("收银：" + selectedOrderBean.getShort_time());
+            tvOrderOperator.setText("收银员：" + selectedOrderBean.getOperator());
+        }
     }
 }

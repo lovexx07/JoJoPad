@@ -23,4 +23,13 @@ public class PriceUtil {
         }
     }
 
+    public static String getBuety(String pricestr){
+        try {
+            int priceInt = Integer.parseInt(pricestr);
+            return priceInt+"";
+        }catch (NumberFormatException e){
+            double price = Double.parseDouble(pricestr);
+            return price+"";
+        }
+    }
 }

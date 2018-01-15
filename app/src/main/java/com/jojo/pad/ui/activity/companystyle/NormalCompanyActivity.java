@@ -115,6 +115,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
     private String cid, cname, crecharge;//会员id，会员名字，会员帐余额
     private List<OrderBean> datas;
     private NormalCompanyAdapter normalCompanyAdapter;
+    private int count;//商品数量
 
     @Override
     public int getLayoutId() {
@@ -273,6 +274,9 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
 
                 break;
             case R.id.ll_edit_collect:
+                if (count==0) {
+                    return;
+                }
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("orders", (Serializable) datas);
                 if (!TextUtils.isEmpty(cid)) {
@@ -338,7 +342,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         }
     }
     private void refreshSum(){
-        int count =0;
+         count =0;
         double sum=0;
         for (OrderBean orderBean :datas){
             count += orderBean.getCount();
@@ -347,7 +351,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         tvCount.setText(count+"");
         tvSum.setText(sum+"");
         tvCollect.setText("￥"+sum);
-
+        tvClear.setText("清空("+count+")");
         if (count >0){
             tvClear.setVisibility(View.VISIBLE);
         }else {

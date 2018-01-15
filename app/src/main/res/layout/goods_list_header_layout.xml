@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@color/gray_e0"
-    android:layout_marginLeft="@dimen/dp_1"
-    android:layout_marginRight="@dimen/dp_1"
+    android:background="@drawable/rect_stroke_c0"
     >
     <TextView
         android:layout_width="0dp"

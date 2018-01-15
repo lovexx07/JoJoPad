@@ -89,7 +89,7 @@ public class GoodsSearchDialog extends Dialog {
             Window window = dialog.getWindow();
 
             WindowManager.LayoutParams lp = window.getAttributes();
-            lp.width = ScreenUtils.getScreenWidth() / 3;
+            lp.width = ScreenUtils.getScreenWidth() / 5 *2;
             lp.height = ScreenUtils.getScreenHeight() / 10 * 9;
             window.setAttributes(lp);
 

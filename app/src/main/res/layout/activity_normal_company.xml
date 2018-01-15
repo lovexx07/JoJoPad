@@ -122,14 +122,14 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:text="品名"
             android:textSize="@dimen/text_size_18" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.3"
             android:text="单价"
             android:textSize="@dimen/text_size_18" />
 
@@ -143,7 +143,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.3"
             android:text="小计"
             android:textSize="@dimen/text_size_18" />
 

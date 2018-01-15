@@ -57,7 +57,7 @@ public class SaleBean {
         private String gid;
         private String goods_number;
         private String msg;
-        private String discount ="10";//折扣（不能为空,无打折传10）
+        private double discount =10;//折扣（不能为空,无打折传10）
 
         public String getGid() {
             return gid;
@@ -83,11 +83,11 @@ public class SaleBean {
             this.msg = msg;
         }
 
-        public String getDiscount() {
+        public double getDiscount() {
             return discount;
         }
 
-        public void setDiscount(String discount) {
+        public void setDiscount(double discount) {
             this.discount = discount;
         }
     }

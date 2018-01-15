@@ -1,5 +1,6 @@
 package com.jojo.pad.ui.activity;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +23,9 @@ import com.jojo.pad.listener.ResponseListener;
 import com.jojo.pad.listener.ViewClickListener;
 import com.jojo.pad.model.bean.OrderBean;
 import com.jojo.pad.model.bean.SaleBean;
+import com.jojo.pad.model.bean.print.PrintGoodBean;
 import com.jojo.pad.model.bean.result.SaleAddResultBean;
 import com.jojo.pad.model.http.BaseHttp;
-import com.jojo.pad.model.bean.print.PrintGoodBean;
 import com.jojo.pad.print.UsbPrinter;
 import com.jojo.pad.util.AccountUtil;
 import com.jojo.pad.util.Convert;
@@ -32,13 +33,13 @@ import com.jojo.pad.util.PrinterUtil;
 import com.jojo.pad.util.ThreadPoolManager;
 import com.jojo.pad.widget.CheckOutRoot;
 import com.jojo.pad.widget.DiscountSelectView;
+import com.jojo.pad.widget.PadHeader;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class CheckOutActivity extends BaseAcitivty implements View.OnClickListener {
     @BindView(R.id.tv_discount_number)
@@ -90,6 +91,8 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
     TextView tvRepayMoney;
     @BindView(R.id.ll_root)
     LinearLayout llRoot;
+    @BindView(R.id.header)
+    PadHeader header;
 
     private PopupWindow mPopWindow;
     private DiscountSelectView discountSelect;
@@ -97,7 +100,7 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
 
     private List<OrderBean> datas;
     private double sum = 0;//应收金额
-    private int  cousts = 0;//总数量
+    private int cousts = 0;//总数量
     private String cid;
     private int paytype = 2;//0货到付款 1微信支付 2现金 3银行卡 4支付宝 5储值卡 6欠款
     private List<SaleBean.Data> saleBeanList;
@@ -106,6 +109,9 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
     private UsbPrinter usbprint;
 
     private SaleBean saleBean;
+    private int discount = 10;//整单折扣
+    private double discountend;//折后金额
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_check_outctivity;
@@ -125,14 +131,17 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
                 cousts += orderBean.getCount();
                 SaleBean.Data sale = new SaleBean.Data();
                 sale.setGid(orderBean.getGid());
-                sale.setDiscount("10");
-                sale.setGoods_number(orderBean.getCount()+"");
+                sale.setDiscount(10);
+                sale.setGoods_number(orderBean.getCount() + "");
                 sale.setMsg("");
                 saleBeanList.add(sale);
             }
+            discountend = sum;
             saleBean.setSale_list(saleBeanList);
-            tvOrderSum.setText(sum + "");
-            tvPayEnd.setText(sum + "");
+            tvOrderSum.setText("￥"+sum);
+            tvPayEnd.setText("￥"+sum );
+            tvOrderDiscount.setText("￥"+sum );
+            tvDiscountCount.setText("100%");
         }
 
         initPrinter();
@@ -143,8 +152,6 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
         usbprint.init(this);
 
 
-
-
     }
 
     @Override
@@ -153,12 +160,14 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
             @Override
             public void clickListener(String msg, int type) {
                 if (type == Constant.VIEW_CLICK_TYPE_NUMBER) {
-                    tvPayEnd.setText(msg);
-                    double payend = Double.parseDouble(msg);
-                     end = payend -sum;
-                    tvRepayMoney.setText("" + end);
+                    if (!TextUtils.isEmpty(msg)) {
+                        tvPayEnd.setText(msg);
+                        double payend = Double.parseDouble(msg);
+                        end = payend - sum;
+                        tvRepayMoney.setText("" + end);
+                    }
                 } else if (type == Constant.VIEW_CLICK_TYPE_COMFIRM) {
-                    if (end >=0) {
+                    if (end >= 0) {
                         saleOrder();
                     }
                 }
@@ -171,6 +180,12 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
         tvDiscount.setOnClickListener(this);
         tvMore.setOnClickListener(this);
         llRoot.setOnClickListener(this);
+        header.setBackClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         gadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -220,7 +235,6 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
             case R.id.ll_root:
                 break;
             case R.id.tv_truenleft:
-                tvDiscountTitle.setText("折扣率:");
                 llDiscount.setVisibility(View.GONE);
                 llDiscountItem.setVisibility(View.VISIBLE);
                 break;
@@ -228,8 +242,10 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
                 tvDiscountTitle.setText("优惠券码:");
                 llDiscountItem.setVisibility(View.GONE);
                 llDiscount.setVisibility(View.VISIBLE);
+
                 break;
             case R.id.tv_discount:
+                tvDiscountTitle.setText("折扣率");
                 llDiscountItem.setVisibility(View.GONE);
                 llDiscount.setVisibility(View.VISIBLE);
                 showPopupWindow();
@@ -258,9 +274,20 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
                 public void clickListener(String msg, int type) {
                     mPopWindow.dismiss();
                     if (type == Constant.VIEW_CLICK_TYPE_NUMBER) {
-                        tvDiscountCount.setText(msg);
+                        tvDiscountCount.setText(msg+"%");
+                         discount = Integer.parseInt(msg);
+
+                         discountend = sum * discount /100;
+                        tvOrderDiscount.setText("￥"+discountend);
+                        tvPayEnd.setText("￥"+discountend);
+
+
                     } else if (type == Constant.VIEW_CLICK_TYPE_COMFIRM) {
-                        ToastUtils.showShort("抹零");
+                        int showend = (int) (discountend = (int)discountend);
+
+                        tvOrderDiscount.setText("￥"+showend);
+                        tvPayEnd.setText("￥"+showend);
+                        LogUtils.e(discountend);
                     }
 
                 }
@@ -291,7 +318,7 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
             @Override
             public void onSuccess(Object result) {
                 if (tvDocuments.isChecked()) {
-                    final SaleAddResultBean resultBean = Convert.fromJObject(result,SaleAddResultBean.class);
+                    final SaleAddResultBean resultBean = Convert.fromJObject(result, SaleAddResultBean.class);
 
                     final PrintGoodBean printGoodBean = new PrintGoodBean();
                     printGoodBean.setCount(cousts);
@@ -301,7 +328,6 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
                     printGoodBean.setOrder_id(resultBean.getOrder_id());
                     printGoodBean.setReal_money(resultBean.getReal_money());
                     printGoodBean.setDatas(datas);
-
 
 
                     ThreadPoolManager.newInstance().addExecuteTask(new Runnable() {
@@ -321,7 +347,7 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
                             });
                         }
                     });
-                }else {
+                } else {
                     setResult(RESULT_OK);
                     finish();
                 }
@@ -335,9 +361,17 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
 
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         usbprint.onDestory();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

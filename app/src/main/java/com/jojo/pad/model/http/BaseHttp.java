@@ -155,6 +155,9 @@ public class BaseHttp {
                 break;
             case CODE.SYSTEM_ERROR:
                 break;
+            case CODE.SYSTEM_ERROR_2:
+                msg = "记账失败";
+                break;
             default:
                 result = msg;
         }
@@ -172,5 +175,6 @@ public class BaseHttp {
         int SYSTEM_ERROR = 1006;//		系统错误
 
         int INVALID_BARCODE = 2108;//		未找到商品
+        int SYSTEM_ERROR_2 = 4002;//		记账失败
     }
 }

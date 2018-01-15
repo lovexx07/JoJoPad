@@ -33,33 +33,69 @@
             android:name="BUGLY_ENABLE_DEBUG"
             android:value="true" />
 
-        <activity android:name=".ui.activity.SplashActivity">
+        <activity android:name=".ui.activity.SplashActivity"
+            android:screenOrientation="landscape"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.account.CompanyLoginActivity" />
-        <activity android:name=".ui.activity.account.EmployeeLoginActivity" />
-        <activity android:name=".ui.activity.account.CompanyRegisterActivity" />
-        <activity android:name=".ui.activity.account.CompanyStyleActivity" />
-        <activity android:name=".ui.activity.companystyle.NormalCompanyActivity" />
-        <activity android:name=".ui.activity.companystyle.SpecialCompanyActivity" />
-        <activity android:name=".ui.activity.member.MemberSearchActivity" />
-        <activity android:name=".ui.activity.TransferActivity" />
-        <activity android:name=".ui.activity.SaleDocumesActivity" />
-        <activity android:name=".ui.activity.NewGoodsActivity" />
-        <activity android:name=".ui.activity.OrderApplicationActivity" />
-        <activity android:name=".ui.activity.GoodsManageActivity" />
-        <activity android:name=".ui.activity.LogisticActivity" />
-        <activity android:name=".ui.activity.MessageCenterActivity" />
-        <activity android:name=".ui.activity.SystemSetupActivity" />
-        <activity android:name=".ui.activity.TransferDayActivity" />
+        <activity android:name=".ui.activity.account.CompanyLoginActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.account.EmployeeLoginActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.account.CompanyRegisterActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.account.CompanyStyleActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.companystyle.NormalCompanyActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.companystyle.SpecialCompanyActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.member.MemberSearchActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.TransferActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.SaleDocumesActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.NewGoodsActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.OrderApplicationActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.GoodsManageActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.LogisticActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.MessageCenterActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.SystemSetupActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.TransferDayActivity"
+            android:screenOrientation="landscape"
+            />
         <activity
             android:name=".util.UsbDemoActivity"
             android:label="@string/title_activity_usb_demo"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="landscape"
+            >
             <!--<intent-filter>-->
 
                 <!--&lt;!&ndash; usb设备的动作 &ndash;&gt;-->
@@ -87,11 +123,21 @@
                 android:resource="@xml/accessibilityservice" />
         </service>
 
-        <activity android:name=".print.PrintDemoActivity" />
-        <activity android:name=".ui.activity.CheckOutActivity" />
-        <activity android:name=".ui.activity.member.MemberAddActivity" />
-        <activity android:name=".ui.activity.member.MemberDetailActivity" />
-        <activity android:name=".ui.activity.member.MemberRechargeActivity"/>
+        <activity android:name=".print.PrintDemoActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.CheckOutActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.member.MemberAddActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.member.MemberDetailActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".ui.activity.member.MemberRechargeActivity"
+            android:screenOrientation="landscape"
+            />
 
     </application>
 
