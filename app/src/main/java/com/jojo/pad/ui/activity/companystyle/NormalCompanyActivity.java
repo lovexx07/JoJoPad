@@ -389,7 +389,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         Map<String, String> map = new HashMap<>();
         map.put("store_id", AccountUtil.store_id);
         map.put("user_id", AccountUtil.user_id);
-        map.put("goods_name", code);
+        map.put("search_word", code);
         BaseHttp.getJson(HttpConstant.Api.goodGetList, map, activity, new ResponseListener() {
             @Override
             public void onSuccess(Object result) {
