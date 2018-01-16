@@ -256,8 +256,12 @@ public class UsbDemoActivity extends AppCompatActivity {
         }
     }
     public void sendMessageToPoint(double value) {
+
         byte[] buffer = double2Bytes(value);
-        if(myDeviceConnection.bulkTransfer(epBulkOut,buffer,buffer.length,0) >= 0){
+        int sta = myDeviceConnection.bulkTransfer(epBulkOut,buffer,buffer.length,0);
+
+        Toast.makeText(this,"sendMessageToPoint  "+sta,Toast.LENGTH_SHORT).show();
+        if( sta>= 0){
             //0 或者正数表示成功
             Toast.makeText(this,"发送成功",Toast.LENGTH_SHORT).show();
         }else{
