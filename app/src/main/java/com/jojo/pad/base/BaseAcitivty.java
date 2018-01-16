@@ -32,7 +32,6 @@ public abstract class BaseAcitivty extends AppCompatActivity{
         initView();
         setListener();
         initData();
-
     }
 
     public abstract int getLayoutId();
