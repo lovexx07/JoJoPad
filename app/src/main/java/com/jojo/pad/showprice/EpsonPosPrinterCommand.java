@@ -1,10 +1,12 @@
 package com.jojo.pad.showprice;
 
 /**
- * Created by Administrator on 2018/1/16 0016.
+ * Epson打印指令集
+ * @author <a href="mailto:iffiff1@hotmail.com">Tyler Chen</a> 新增日期：2008-6-19
+ * @author <a href="mailto:iffiff1@hotmail.com">Tyler Chen</a> 修改日期：2008-6-19
  */
-
 public class EpsonPosPrinterCommand {
+
     public static final byte HT = 0x9;
     public static final byte LF = 0x0A;
     public static final byte CR = 0x0D;
@@ -207,7 +209,9 @@ public class EpsonPosPrinterCommand {
         return new byte[] { ESC, 'p', (byte) n, (byte) m };
     }
 
-
+//    public static byte[] setNvBitImage(BufferedImage[] images) {
+//        return null;
+//    }
 
     public static byte[] testPrint(int paper, int pattern) {
         paper = (paper == 0 || paper == 1 || paper == 2 || paper == 48
