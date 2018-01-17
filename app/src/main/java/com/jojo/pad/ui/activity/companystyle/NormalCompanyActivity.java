@@ -35,6 +35,8 @@ import com.jojo.pad.model.bean.result.GoodCodeListBean;
 import com.jojo.pad.model.bean.result.GoodSearchListBean;
 import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.scaner.BarcodeScannerResolver;
+import com.jojo.pad.showprice.EpsonPosPrinterCommand;
+import com.jojo.pad.showprice.PriceShowUtil;
 import com.jojo.pad.ui.activity.CheckOutActivity;
 import com.jojo.pad.ui.activity.GoodsManageActivity;
 import com.jojo.pad.ui.activity.LogisticActivity;
@@ -50,6 +52,8 @@ import com.jojo.pad.ui.activity.member.MemberSearchActivity;
 import com.jojo.pad.util.AccountUtil;
 import com.jojo.pad.util.Convert;
 import com.jojo.pad.widget.SearchView;
+import com.kongqw.serialportlibrary.Device;
+import com.kongqw.serialportlibrary.SerialPortManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -111,6 +115,8 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
     private ObjectClickListener<GoodSearchListBean.GoodsListBean> objectClickListener;
     //扫码枪监听
     private BarcodeScannerResolver mBarcodeScannerResolver;
+    //价格金额显示
+    private SerialPortManager mSerialPortManager;
 
     private String cid, cname, crecharge;//会员id，会员名字，会员帐余额
     private List<OrderBean> datas;
@@ -222,6 +228,7 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
     public void setListener() {
         EventBus.getDefault().register(this);
         startScanListenr();
+        initPort();
         mainSet.setOnClickListener(this);
         ivInput.setOnClickListener(this);
         ivMessage.setOnClickListener(this);
@@ -233,12 +240,26 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
 
     }
 
+    //初始化客显端口
+    private void initPort() {
+        Device device = PriceShowUtil.getDevice();
+        mSerialPortManager = new SerialPortManager();
+        if (device != null){
+            mSerialPortManager.openSerialPort(device.getFile(), 2400);
+        }
+        mSerialPortManager.sendBytes(EpsonPosPrinterCommand.ESC_INIT);
+    }
+
     @Override
     public void initData() {
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSerialPortManager.sendBytes(EpsonPosPrinterCommand.ESC_INIT);
+    }
 
     @Override
     public void onClick(View view) {
@@ -357,6 +378,8 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
         }else {
             tvClear.setVisibility(View.INVISIBLE);
         }
+        //显示订单总计
+        mSerialPortManager.sendBytes(PriceShowUtil.getShowByte(sum+"",PriceShowUtil.DISPLAY_STATE_TOTAL));
     }
 
     private void searchGoodById(String code) {
@@ -442,15 +465,19 @@ public class NormalCompanyActivity extends BaseAcitivty implements View.OnClickL
 
     @Override
     protected void onDestroy() {
+        if (null != mSerialPortManager) {
+            mSerialPortManager.closeSerialPort();
+            mSerialPortManager = null;
+        }
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        removeScanListen();
+        removeScanLister();
     }
 
     /**
      * 移除扫码监听
      */
-    public void removeScanListen() {
+    public void removeScanLister() {
         mBarcodeScannerResolver.removeScanSuccessListener();
         mBarcodeScannerResolver = null;
     }

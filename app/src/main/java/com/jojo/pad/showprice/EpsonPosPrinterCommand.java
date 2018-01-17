@@ -62,6 +62,7 @@ public class EpsonPosPrinterCommand {
     public static final byte[] ESC_ENABLE_PRINTER = new byte[] { ESC, '=', 0x01 };
 
     public static final byte[] ESC_INIT = new byte[] { ESC, '@' };
+    public static final byte[] CLEAR = new byte[] { CLR};
 
     public static final byte[] ESC_HT_RESET = new byte[] { ESC, 'D', };
 
@@ -289,15 +290,5 @@ public class EpsonPosPrinterCommand {
         return new byte[] { ESC, 's', (byte) n };
     }
 
-    public static void main(String[] args) throws Exception {
-        //String imagePixelToPosString = ImagePixelUtils.imagePixelToPosString("C:/2.bmp", 0);
-        //test_1();
-        //ImagePixelUtils.printImageToDots("C:/test.bmp");
-        //ImagePixelUtils.imagePixelToPosString_24("C:/f.bmp", 32);
-        //ImagePixelUtils.imagePixelToPosString_8("C:/test.bmp", 1);
-        //System.out.println(Byte.SIZE);
-        //System.out.println(Integer.toBinaryString(1));
-        //java.text.DecimalFormat df = new java.text.DecimalFormat("00000000");
-        //System.out.println(df.format(0x01));
-    }
+
 }

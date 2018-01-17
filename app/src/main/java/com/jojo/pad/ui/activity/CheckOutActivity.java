@@ -27,6 +27,8 @@ import com.jojo.pad.model.bean.print.PrintGoodBean;
 import com.jojo.pad.model.bean.result.SaleAddResultBean;
 import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.print.UsbPrinter;
+import com.jojo.pad.showprice.EpsonPosPrinterCommand;
+import com.jojo.pad.showprice.PriceShowUtil;
 import com.jojo.pad.util.AccountUtil;
 import com.jojo.pad.util.Convert;
 import com.jojo.pad.util.PrinterUtil;
@@ -34,6 +36,8 @@ import com.jojo.pad.util.ThreadPoolManager;
 import com.jojo.pad.widget.CheckOutRoot;
 import com.jojo.pad.widget.DiscountSelectView;
 import com.jojo.pad.widget.PadHeader;
+import com.kongqw.serialportlibrary.Device;
+import com.kongqw.serialportlibrary.SerialPortManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +116,9 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
     private int discount = 10;//整单折扣
     private double discountend;//折后金额
 
+
+    //价格金额显示
+    private SerialPortManager mSerialPortManager;
     @Override
     public int getLayoutId() {
         return R.layout.activity_check_outctivity;
@@ -145,13 +152,23 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
         }
 
         initPrinter();
+        initPort();
+        //收款
+        mSerialPortManager.sendBytes(PriceShowUtil.getShowByte(sum+"",PriceShowUtil.DISPLAY_STATE_AMOUNT));
     }
 
     private void initPrinter() {
         usbprint = UsbPrinter.getInstance();
         usbprint.init(this);
-
-
+    }
+    //初始化客显端口
+    private void initPort() {
+        Device device = PriceShowUtil.getDevice();
+        mSerialPortManager = new SerialPortManager();
+        if (device != null){
+            mSerialPortManager.openSerialPort(device.getFile(), 2400);
+        }
+        mSerialPortManager.sendBytes(EpsonPosPrinterCommand.ESC_INIT);
     }
 
     @Override
@@ -165,6 +182,8 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
                         double payend = Double.parseDouble(msg);
                         end = payend - sum;
                         tvRepayMoney.setText("" + end);
+                        //显示找零
+                        mSerialPortManager.sendBytes(PriceShowUtil.getShowByte(end+"",PriceShowUtil.DISPLAY_STATE_CHAGNE));
                     }
                 } else if (type == Constant.VIEW_CLICK_TYPE_COMFIRM) {
                     if (end >= 0) {
@@ -364,6 +383,10 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
 
     @Override
     protected void onDestroy() {
+        if (null != mSerialPortManager) {
+            mSerialPortManager.closeSerialPort();
+            mSerialPortManager = null;
+        }
         super.onDestroy();
         usbprint.onDestory();
     }

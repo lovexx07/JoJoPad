@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.jojo.pad.R;
+import com.jojo.pad.util.PrinterUtil;
+import com.jojo.pad.util.ThreadPoolManager;
 import com.jojo.pad.util.printerCmdUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -31,7 +34,7 @@ public class PrintDemoActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Thread(new Runnable() {
+                ThreadPoolManager.newInstance().addExecuteTask(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -39,7 +42,7 @@ public class PrintDemoActivity extends AppCompatActivity {
                         } catch (Exception e) {
                         }
                     }
-                }).start();
+                });
             }
         });
     }

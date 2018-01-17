@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JoJoPad.iml" filepath="$PROJECT_DIR$/JoJoPad.iml" />
       <module fileurl="file://D:\sun\aa\JoJoPad.iml" filepath="D:\sun\aa\JoJoPad.iml" />
-      <module fileurl="file://D:\sun\JoJoPad\.idea\JoJoPad.iml" filepath="D:\sun\JoJoPad\.idea\JoJoPad.iml" />
       <module fileurl="file://D:\work_space\JoJoPad\JoJoPad.iml" filepath="D:\work_space\JoJoPad\JoJoPad.iml" />
+      <module fileurl="file://D:\sun\JoJoPad\.idea\JoJoPad.iml" filepath="D:\sun\JoJoPad\.idea\JoJoPad.iml" />
       <module fileurl="file://C:\sun\JoJoPad\aa.iml" filepath="C:\sun\JoJoPad\aa.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

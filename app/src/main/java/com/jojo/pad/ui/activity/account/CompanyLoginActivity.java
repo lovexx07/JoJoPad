@@ -13,10 +13,10 @@ import com.jojo.pad.listener.ResponseListener;
 import com.jojo.pad.model.bean.result.UserSignInBean;
 import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.print.PrintDemoActivity;
+import com.jojo.pad.showprice.SerialPortActivity;
 import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
 import com.jojo.pad.util.AccountUtil;
 import com.jojo.pad.util.Convert;
-import com.jojo.pad.util.UsbDemoActivity;
 import com.jojo.pad.widget.CircleImageView;
 
 import java.util.HashMap;
@@ -53,7 +53,7 @@ public class CompanyLoginActivity extends BaseAcitivty {
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toActivity(UsbDemoActivity.class);
+                toActivity(SerialPortActivity.class);
             }
         });
         header.setOnLongClickListener(new View.OnLongClickListener() {
