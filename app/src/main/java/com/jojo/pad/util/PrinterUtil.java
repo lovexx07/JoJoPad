@@ -38,8 +38,11 @@ public class PrinterUtil {
             byte[] ordertitle = ("商品名称             单价   数量").getBytes("gb2312");
 
             String goodstr ="";
+
             for (OrderBean goodBean :printGoodBean.getDatas()){
                 goodstr +=goodBean.getGoods_name()+"       "+goodBean.getGoods_price()+"   "+goodBean.getCount()+"\n";
+
+
             }
             byte[] goodsbyte = goodstr.getBytes("gb2312");
             byte[] orderSum = ("原价: "+printGoodBean.getSum()).getBytes("gb2312");
