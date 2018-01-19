@@ -24,11 +24,7 @@ android {
         }
 
     }
-    // 编译选项
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
+
     buildTypes {
         release {
             minifyEnabled false

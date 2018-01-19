@@ -21,7 +21,7 @@ import com.jojo.pad.model.bean.print.PrintRecharge;
 import com.jojo.pad.model.http.BaseHttp;
 import com.jojo.pad.print.UsbPrinter;
 import com.jojo.pad.util.AccountUtil;
-import com.jojo.pad.util.PrinterUtil;
+import com.jojo.pad.util.USBPrinterUtil;
 import com.jojo.pad.util.ThreadPoolManager;
 import com.jojo.pad.widget.NumberSelectView;
 import com.jojo.pad.widget.PadHeader;
@@ -207,7 +207,7 @@ public class MemberRechargeActivity extends BaseAcitivty implements View.OnClick
             @Override
             public void run() {
                 try {
-                            usbprint.sendMessageToPoint(PrinterUtil.printRecharge(printRecharge));
+                            usbprint.sendMessageToPoint(USBPrinterUtil.printRecharge(printRecharge));
                 } catch (Exception e) {
                 }
                 runOnUiThread(new Runnable() {

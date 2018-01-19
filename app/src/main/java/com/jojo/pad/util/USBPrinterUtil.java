@@ -11,7 +11,7 @@ import java.io.UnsupportedEncodingException;
  * Created by Administrator on 2018/1/12 0012.
  */
 
-public class PrinterUtil {
+public class USBPrinterUtil {
 
     public static byte[] printSaleOrder(PrintGoodBean printGoodBean) {
         try {
@@ -35,23 +35,20 @@ public class PrinterUtil {
             byte[] orderSerinum = ("单号："+printGoodBean.getOrder_id()).getBytes("gb2312");
             byte[] currentTime = ("时间："+ TimeUtils.getNowString()).getBytes("gb2312");
 
-            byte[] ordertitle = ("商品名称             单价   数量").getBytes("gb2312");
+            byte[] ordertitle = PrintUtils.printThreeData("商品名称","单价","数量").getBytes("gb2312");
 
             String goodstr ="";
 
             for (OrderBean goodBean :printGoodBean.getDatas()){
-                goodstr +=goodBean.getGoods_name()+"          "+goodBean.getGoods_price()+"   "+goodBean.getCount()+"\n";
+                goodstr += PrintUtils.printThreeData(goodBean.getGoods_name(),goodBean.getGoods_price(),goodBean.getCount()+"\n");
             }
             byte[] goodsbyte = goodstr.getBytes("gb2312");
-            byte[] orderSum = ("原价: "+printGoodBean.getSum()).getBytes("gb2312");
-            byte[] orderCount = ("总数: "+printGoodBean.getCount()).getBytes("gb2312");
 
-            byte[] orderEnd = ("实收: ￥"+printGoodBean.getReal_money()).getBytes("gb2312");
-            byte[] orderpay = ("支付: "+printGoodBean.getPay_type_name()).getBytes("gb2312");
-
+            byte[] sumcount = PrintUtils.printTwoData("原价:  "+printGoodBean.getSum(),"总数: "+printGoodBean.getCount()).getBytes("gb2312");
+            byte[] orderend = PrintUtils.printTwoData("实收: ￥"+printGoodBean.getReal_money(),"支付: "+printGoodBean.getPay_type_name()).getBytes("gb2312");
 
             byte[] nextLine = printerCmdUtils.nextLine(1);
-            byte[] tips = "欢迎光临！".getBytes("gb2312");
+            byte[] tips = "欢迎再次光临！".getBytes("gb2312");
             byte[] line = "-------------------------------".getBytes("gb2312");
 
 
@@ -63,11 +60,9 @@ public class PrinterUtil {
                     line,nextLine,
                     ordertitle,nextLine,
                     goodsbyte,nextLine,
-                    line,nextLine,
-                    orderSum,
-                    right,orderCount,nextLine,
-                    left,orderEnd,
-                    right,orderpay,nextLine,
+                    line,nextLine,left,
+                    sumcount,nextLine,
+                    left,orderend,nextLine,
                     left,
                     line,nextLine,
                     center,tips,

@@ -31,7 +31,7 @@ import com.jojo.pad.showprice.EpsonPosPrinterCommand;
 import com.jojo.pad.showprice.PriceShowUtil;
 import com.jojo.pad.util.AccountUtil;
 import com.jojo.pad.util.Convert;
-import com.jojo.pad.util.PrinterUtil;
+import com.jojo.pad.util.USBPrinterUtil;
 import com.jojo.pad.util.ThreadPoolManager;
 import com.jojo.pad.widget.CheckOutRoot;
 import com.jojo.pad.widget.DiscountSelectView;
@@ -353,7 +353,7 @@ public class CheckOutActivity extends BaseAcitivty implements View.OnClickListen
                         @Override
                         public void run() {
                             try {
-                                usbprint.sendMessageToPoint(PrinterUtil.printSaleOrder(printGoodBean));
+                                usbprint.sendMessageToPoint(USBPrinterUtil.printSaleOrder(printGoodBean));
                             } catch (Exception e) {
                             }
                             runOnUiThread(new Runnable() {
