@@ -12,8 +12,6 @@ import com.jojo.pad.constant.HttpConstant;
 import com.jojo.pad.listener.ResponseListener;
 import com.jojo.pad.model.bean.result.UserSignInBean;
 import com.jojo.pad.model.http.BaseHttp;
-import com.jojo.pad.print.PrintDemoActivity;
-import com.jojo.pad.showprice.SerialPortActivity;
 import com.jojo.pad.ui.activity.companystyle.NormalCompanyActivity;
 import com.jojo.pad.util.AccountUtil;
 import com.jojo.pad.util.Convert;
@@ -50,19 +48,19 @@ public class CompanyLoginActivity extends BaseAcitivty {
 
     @Override
     public void setListener() {
-        header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toActivity(SerialPortActivity.class);
-            }
-        });
-        header.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                toActivity(PrintDemoActivity.class);
-                return true;
-            }
-        });
+//        header.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                toActivity(SerialPortActivity.class);
+//            }
+//        });
+//        header.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                toActivity(PrintDemoActivity.class);
+//                return true;
+//            }
+//        });
     }
 
     @Override
